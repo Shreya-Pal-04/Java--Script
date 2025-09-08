@@ -1,0 +1,16 @@
+a = <input type="number" id="a" ><br>
+
+<input type="button" value="Result" onclick="return ele()">
+
+<h1 id="result"></h1>
+
+<script>
+  function ele(){
+    var a = Number(document.getElementById('a').value);
+
+    var ans = 3.14*a*a;
+
+    document.getElementById('result').innerHTML = "3.14*a*a="+ans;
+
+  }  
+</script>

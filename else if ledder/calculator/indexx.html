@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Area Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #89f7fe, #66a6ff);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+            width: 300px;
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+        select, input {
+            width: 90%;
+            padding: 8px;
+            margin-top: 8px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 15px;
+        }
+        button {
+            margin-top: 12px;
+            padding: 10px 15px;
+            width: 95%;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        #result {
+            margin-top: 15px;
+            font-weight: bold;
+            color: #222;
+            background: #f1f1f1;
+            padding: 8px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Area Calculator</h2>
+
+        <select id="shape" onchange="showInputs()">
+            <option value="">--Select Shape--</option>
+            <option value="circle">Circle</option>
+            <option value="triangle">Triangle</option>
+            <option value="rectangle">Rectangle</option>
+        </select>
+
+        <div id="inputsDiv"></div>
+
+        <button id="findBtn" onclick="calculateArea()" style="display:none;">Find Area</button>
+
+        <div id="result"></div>
+    </div>
+</body>
+</html>
+
+<script>
+function showInputs() {
+    var shape = document.getElementById("shape").value;
+    var inputsDiv = document.getElementById("inputsDiv");
+    var findBtn = document.getElementById("findBtn");
+
+    if (shape === "circle") {
+        inputsDiv.innerHTML = 'Radius: <input type="number" id="radius">';
+        findBtn.style.display = "block";
+    }
+    else if (shape === "triangle") {
+        inputsDiv.innerHTML = 'Base: <input type="number" id="base"><br>Height: <input type="number" id="height">';
+        findBtn.style.display = "block";
+    }
+    else if (shape === "rectangle") {
+        inputsDiv.innerHTML = 'Length: <input type="number" id="length"><br>Width: <input type="number" id="width">';
+        findBtn.style.display = "block";
+    }
+    else {
+        inputsDiv.innerHTML = "";
+        findBtn.style.display = "none";
+    }
+
+    document.getElementById("result").innerHTML = "";
+}
+
+function calculateArea() {
+    var shape = document.getElementById("shape").value;
+    var area = 0;
+
+    if (shape === "circle") {
+        var r = Number(document.getElementById("radius").value);
+        area = 3.14 * r * r;
+    }
+    else if (shape === "triangle") {
+        var b = Number(document.getElementById("base").value);
+        var h = Number(document.getElementById("height").value);
+        area = 0.5 * b * h;
+    }
+    else if (shape === "rectangle") {
+        var l = Number(document.getElementById("length").value);
+        var w = Number(document.getElementById("width").value);
+        area = l * w;
+    }
+    else {
+        area = "Please select a shape";
+    }
+
+    document.getElementById("result").innerHTML = "Area = " + area;
+}
+
+</script>
+

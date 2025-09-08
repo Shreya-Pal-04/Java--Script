@@ -1,0 +1,10 @@
+<script>
+    var record = [10, 5, 'Hello', true, 'Hi', 52, false];
+
+    var newarray = record.filter(function(item){
+        if(typeof item == "number" || typeof item == "boolean" || typeof item == "string"){
+            return item;
+        } 
+    })
+    console.log(newarray);
+</script>

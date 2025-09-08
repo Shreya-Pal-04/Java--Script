@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age</title>
+</head>
+<body>
+    <h2>Age Limitation For Vote</h2>
+    <table>
+        <tr>
+            <td><label> Enter Your Age</label></td>
+            <td><input type="number" name="" id="age"></td>
+        </tr>
+    </table>
+
+    <button onclick="checkvote()">Check</button>
+    <h3 id="result">result :- </h3>
+</body>
+</html>
+
+<script>
+    function checkvote() {
+        var age = Number(document.getElementById("age").value);
+    
+    if(age>=18){
+        var res = "=== You can Vote. ===";
+    }
+    else{
+        var res = "=== You can't Vote ===";
+    }
+
+    document.getElementById("result").innerHTML = res;
+}
+</script>

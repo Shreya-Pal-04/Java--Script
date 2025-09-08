@@ -1,0 +1,18 @@
+a = <input type="number" id="a" ><br>
+b = <input type="number" id="b"><br>
+
+<input type="button" value="Multification" onclick="return mul()">
+
+<h1 id="result"></h1>
+
+<script>
+  function mul(){
+    var a = Number(document.getElementById('a').value);
+    var b = Number(document.getElementById('b').value);
+
+    var ans = a*a+2*a*b+b*b;
+
+    document.getElementById('result').innerHTML = "Answer = "+ans;
+
+  }  
+</script>

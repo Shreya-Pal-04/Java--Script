@@ -1,0 +1,17 @@
+a = <input type="number" id="a" ><br>
+
+
+<input type="button" value="Rusult" onclick="return mul()">
+
+<h1 id="result"></h1>
+
+<script>
+  function mul(){
+    var a = Number(document.getElementById('a').value);
+
+    var ans = a*86;
+
+    document.getElementById('result').innerHTML = "a*86="+ans;
+
+  }  
+</script>

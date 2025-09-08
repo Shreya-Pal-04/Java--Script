@@ -1,0 +1,61 @@
+body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #877a89;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .bill-container {
+      background-color: #ffffff;
+      padding: 50px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      width: 350px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    label {
+      font-size: 14px;
+      margin-top: 12px;
+      display: block;
+    }
+
+    input[type="number"], input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .readonly {
+      background-color: #eee;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 10px;
+      background-color: #333;
+      color: #fff;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .output {
+      margin-top: 25px;
+      font-size: 18px;
+      text-align: center;
+      color: #000;
+      font-weight: bold;
+    }

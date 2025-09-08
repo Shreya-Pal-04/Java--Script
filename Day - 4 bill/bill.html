@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Light Bill Calculator</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+  <body>
+
+    <div class="container">
+      <div class="box">
+        <h2>Light Bill Calculator</h2>
+
+        <label>User Name:
+          <input type="text" id="username"/>
+        </label>
+
+        <label>Address:
+          <input type="text" id="address"/>
+        </label>
+
+        <label>Units Consumed:
+          <input type="number" id="units" />
+        </label>
+
+        <label>Per Unit Price (₹):
+          <input type="number" value="20" id="unitPrice" />
+        </label>
+
+        <label>Tax Percentage (%):
+          <input type="number" id="tax"/>
+        </label>
+
+        <button onclick="generateBill()">Generate Bill</button>
+
+      </div>
+      <div class="box">
+        <h2>Bill Details</h2>
+
+        <label>Name:
+          <input type="text" id="outName" />
+        </label>
+
+        <label>Address:
+          <input type="text" id="outAddress" />
+        </label>
+
+        <label>Units:
+          <input type="text" id="outUnits" />
+        </label>
+
+        <label>Per Unit (₹):
+          <input type="text" id="outUnitPrice" />
+        </label>
+
+        <label>Base Amount (₹):
+          <input type="text" id="outBase" />
+        </label>
+
+        <label>Tax (₹):
+          <input type="text" id="outTax" />
+        </label>
+
+        <label>Total (₹):
+          <input type="text" id="outTotal" />
+        </label>
+      </div>
+
+    </div>
+  </body>
+</html>
+
+<script>
+    function generateBill() {
+      var name = document.getElementById("username").value;
+      var address = document.getElementById("address").value;
+      var units = Number(document.getElementById("units").value);
+      var unitPrice = Number(document.getElementById("unitPrice").value);
+      var tax = Number(document.getElementById("tax").value);
+
+      var baseAmount = units * unitPrice;
+      var taxAmount = (baseAmount * tax)/100;
+      var total = baseAmount + taxAmount;
+
+      document.getElementById("outName").value = name;
+      document.getElementById("outAddress").value = address;
+      document.getElementById("outUnits").value = units;
+      document.getElementById("outUnitPrice").value = unitPrice;
+      document.getElementById("outBase").value = baseAmount;
+      document.getElementById("outTax").value = taxAmount;
+      document.getElementById("outTotal").value = total;
+    }
+</script>

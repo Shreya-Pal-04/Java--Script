@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tip Calculator</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container">
+    <h2>Tip Calculator</h2>
+
+    <label>Bill Amount</label>
+    <input type="number" id="billAmount">
+
+    <label>Tip Percentage (%)</label>
+    <input type="number" id="tipPercent">
+
+    <label>Number of People</label>
+    <input type="number" id="peopleCount">
+
+    <div class="buttons">
+        <button onclick="calculateTip()">Calculate</button>
+        <button onclick="resetCalculator()" class="reset">Reset</button>
+    </div>
+
+    <div class="output">
+        <p id="tipPerPerson">Tip Per Person: ₹0.00</p>
+        <p id="totalPerPerson">Total per Person: ₹0.00</p>
+        <p id="totalBill">Total Bill: ₹0.00</p>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    function calculateTip() {
+    var billAmount = parseFloat(document.getElementById("billAmount").value);
+    var tipPercent = parseFloat(document.getElementById("tipPercent").value);
+    var peopleCount = parseInt(document.getElementById("peopleCount").value);
+
+    var totalTip = (billAmount*tipPercent)/100;
+    var totalBill = billAmount+totalTip;
+
+    var tipPerPerson = totalTip/peopleCount;
+    var totalPerPerson = totalBill/peopleCount;
+
+    document.getElementById("tipPerPerson").innerText = "Tip per person= "+tipPerPerson ;
+    document.getElementById("totalPerPerson").innerText ='Total per Person= '+totalPerPerson ;
+    document.getElementById("totalBill").innerText ='Total Bill'+totalBill ;
+}
+</script>

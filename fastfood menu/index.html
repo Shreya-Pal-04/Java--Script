@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fast Food Menu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ffecd2, #fcb69f);
+            padding: 20px;
+        }
+        .container {
+            width: 320px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #ff6600;
+        }
+        select, input, button {
+            margin-top: 12px;
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        button {
+            background: #ff6600;
+            color: white;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #e65c00;
+        }
+        #result {
+            margin-top: 15px;
+            font-weight: bold;
+            background: #fff4e6;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #ffcc99;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>🍔 Fast Food Menu</h2>
+
+    <select id="food" onchange="showPrice()">
+        <option value="">--Select Item--</option>
+        <option value="Burger">Burger</option>
+        <option value="Pizza">Pizza</option>
+        <option value="Sandwich">Sandwich</option>
+        <option value="Pasta">Pasta</option>
+        <option value="Fries">Fries</option>
+    </select>
+
+    <div id="inputsDiv"></div>
+
+    <button id="findBtn" onclick="calculateBill()" style="display:none;">Calculate Bill</button>
+
+    <div id="result"></div>
+</div>
+
+<script>
+    let price = 0; // Global variable to store selected item's price
+
+    function showPrice() {
+        let food = document.getElementById("food").value;
+        let inputsDiv = document.getElementById("inputsDiv");
+        let findBtn = document.getElementById("findBtn");
+
+        switch(food) {
+            case "Burger":
+                price = 120;
+                break;
+            case "Pizza":
+                price = 250;
+                break;
+            case "Sandwich":
+                price = 80;
+                break;
+            case "Pasta":
+                price = 150;
+                break;
+            case "Fries":
+                price = 60;
+                break;
+            default:
+                price = 0;
+        }
+
+        if (food) {
+            inputsDiv.innerHTML = `
+                Price: ₹<span id="price">${price}</span><br>
+                Quantity: <input type="number" id="qty" min="1" value="1">
+            `;
+            findBtn.style.display = "block";
+        } else {
+            inputsDiv.innerHTML = "";
+            findBtn.style.display = "none";
+        }
+
+        document.getElementById("result").innerHTML = "";
+    }
+
+    function calculateBill() {
+        let qty = Number(document.getElementById("qty").value);
+        let total = price * qty;
+        let discount = 0;
+
+        if (total >= 500) {
+            discount = total * 0.10; // 10% discount
+        }
+
+        let finalAmount = total - discount;
+
+        document.getElementById("result").innerHTML = `
+            Total Price: ₹${total.toFixed(2)}<br>
+            Discount: ₹${discount.toFixed(2)}<br>
+            <span style="color:green;">Final Bill: ₹${finalAmount.toFixed(2)}</span>
+        `;
+    }
+</script>
+
+</body>
+</html>

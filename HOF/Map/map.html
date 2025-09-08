@@ -1,0 +1,10 @@
+<script>
+    var record = [10, 5, 'Hello', true, 'Hi', 52, false];
+
+    var newarray = record.map(function(item){
+        if(typeof item == "number" || typeof item == "boolean"){
+            return item;
+        } 
+    })
+    console.log(newarray);
+</script>

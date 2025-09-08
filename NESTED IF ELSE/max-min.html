@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Max-Min</title>
+</head>
+<body>
+    <h2>Find Maximum,Minimum Number</h2>
+    <table>
+        <tr>
+            <td><input type="number" id="n1" placeholder="Enter any number"></td>
+        </tr>
+        <tr>
+            <td><input type="number" id="n2" placeholder="Enter second number"></td>
+        </tr>
+        <tr>
+            <td><input type="number" id="n3" placeholder="Enter third number"></td>
+        </tr>
+    </table>
+
+    <button onclick="check()">Submit</button>
+
+    <h4>Maximum Number :- <span id="max"></span></h4>
+    <h4>Minimum Nimber :- <span id="min"></span></h4>
+</body>
+</html>
+
+<script>
+    function check(){
+        var max,min;
+    var n1 = Number(document.getElementById("n1").value);
+    var n2 = Number(document.getElementById("n2").value);
+    var n3 = Number(document.getElementById("n3").value);
+
+    if(n1 >= n2 && n1 >= n3){
+        max = n1;
+    }
+    else if(n2 >= n1 && n2 >= n3){
+        max = n2;
+    }else{
+        max = n3;
+    }
+
+    document.getElementById("max").innerHTML = max;
+
+    if(n1 <= n2 && n1 <= n2){
+        min = n1;
+    }
+    else if(n2 <= n1 && n2 <= n3){
+        min = n2;
+    }else{
+        min = n3;
+    }
+
+    document.getElementById("min").innerHTML = min;
+    }
+</script>

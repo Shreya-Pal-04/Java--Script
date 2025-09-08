@@ -1,0 +1,18 @@
+a = <input type="number" id="a" ><br>
+b = <input type="number" id="b"><br>
+
+<input type="button" value="add" onclick="return sum()">
+
+<h1 id="result"></h1>
+
+<script>
+  function sum(){
+    var a = Number(document.getElementById('a').value);
+    var b = Number(document.getElementById('b').value);
+
+    var ans = a+b;
+
+    document.getElementById('result').innerHTML = "a+b="+ans;
+
+  }  
+</script>
