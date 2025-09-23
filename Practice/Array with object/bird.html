@@ -1,0 +1,29 @@
+<h1 id="name"></h1>
+<h2 id="total"></h2>
+
+<button onclick="prev()">Previous</button>
+<button onclick="next()">Next</button>
+
+<script>
+let bird = [
+    { name: "ab", total: 10 },
+    { name: "cd", total: 20 },
+    { name: "ef", total: 30 }
+];
+let i = 0;
+
+document.getElementById("name").innerText = bird[i].name;
+document.getElementById("total").innerText = bird[i].total;
+function next() {
+  i++;
+  if (i >= bird.length) i = 0;
+  document.getElementById("name").innerText = bird[i].name;
+  document.getElementById("total").innerText = bird[i].total;
+}
+function prev() {
+  i--;
+  if (i < 0) i = bird.length - 1;
+  document.getElementById("name").innerText = bird[i].name;
+  document.getElementById("total").innerText = bird[i].total;
+}
+</script>

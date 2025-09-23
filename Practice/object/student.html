@@ -1,0 +1,28 @@
+<script>
+    let student = {
+        Name : "Shreya",
+        Math : 89,
+        Science : 88,
+        SS :85,
+        English : 87,
+        Account :95,
+        total : function(){
+            return this.Math + this.Science + this.SS + this.English + this.Account;
+        },
+        avg : function(){
+            return this.total() / 5;
+        },
+        grade : function (){
+            var grd = this.avg();
+            if (grd >=90) return "A";
+            else if (grd >=80) return "B";
+            else if (grd >=70) return "C";
+            else return "You are Fail..!!";
+        }
+    };
+
+    console.log("Student Name : ", student.Name);
+    console.log("Total : ", student.total());
+    console.log("Average : ", student.avg());
+    console.log("Grade : ", student.grade());
+</script>
