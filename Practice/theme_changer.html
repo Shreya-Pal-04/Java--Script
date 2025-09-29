@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theme</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+</head>
+<body onclick="changeTheme()">
+  <i class="fa-solid fa-lightbulb themeChanger"></i>
+
+  <div class="card">
+    <h2>Code with Miss.Pal</h2>
+    <h4>Click anywhere to change the theme</h4>
+  </div>
+
+  <script>
+    let body = document.body;
+    let themeChanger = document.querySelector(".themeChanger");
+    let card = document.querySelector(".card");
+
+    function changeTheme() {
+      if (body.style.background === "rgb(25, 25, 25)") {
+        body.style.background = "#f7f7f7";
+        themeChanger.style.color = "#000";
+        card.style.background = "#fff";
+        card.style.color = "#000";
+      } else {
+        body.style.background = "#191919";
+        themeChanger.style.color = "#fff";
+        card.style.background = "#232323";
+        card.style.color = "#fff";
+      }
+    }
+  </script>
+</body>
+</html>

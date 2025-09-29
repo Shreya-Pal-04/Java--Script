@@ -38,3 +38,20 @@ body{
     border: none;
     border-radius: 1rem;
 }
+#new-btn{
+    padding: 1rem;
+    font-size: 1.25rem;
+    background-color: black;
+    color: white;
+    border: none;
+}
+#msg{
+    color: #ffffc7;
+    font-size:8vmin ;
+}
+.msg{
+      height: 30vmin;
+}
+.hide{
+    display: none;
+}

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Different Sign-In Types</title>
+  <style>
+    body { 
+      font-family: Arial, sans-serif; 
+      background:#f5f5f5; 
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .container {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+      width: 300px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    h3 { margin-top: 0; }
+    label { display:block; margin: 8px 0 4px; }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover { background: #45a049; }
+    .showLine {
+      font-size: 14px;
+      color: #333;
+      margin-top: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. Hold -->
+  <form>
+    <div class="container">
+    <h3>1. Hold to Show Password</h3>
+    <input type="email" placeholder="Enter Gmail"  
+       title="Please enter a valid Gmail address" required>
+    <label>Password:</label>
+    <input type="password" id="holdPass">
+    <button>Sign In</button>
+  </div>
+  </form>
+
+  <!-- 2. Hover -->
+  <form>
+    <div class="container">
+    <h3>2. Hover to Show Password</h3>
+    <label>Email:</label>
+    <input type="email" placeholder="Enter Gmail">
+    <label>Password:</label>
+    <input type="password" id="hoverPass" placeholder="Hover mouse to show">
+    <button>Sign In</button>
+  </div>
+  </form>
+
+  <!-- 3. Click Toggle -->
+  <form>
+    <div class="container">
+    <h3>3. Click Toggle on Password</h3>
+    <label>Email:</label>
+    <input type="email" placeholder="Enter Gmail">
+    <label>Password:</label>
+    <input type="password" id="togglePass" placeholder="Click to toggle">
+    <div class="showLine" id="showLine"></div>
+    <button>Sign In</button>
+  </div>
+  </form>
+
+  <!-- 4. Double Click -->
+  <form>
+    <div class="container">
+    <h3>4. Double-Click to Toggle Password</h3>
+    <label>Email:</label>
+    <input type="email" placeholder="Enter Gmail">
+    <label>Password:</label>
+    <input type="password" id="dblPass" placeholder="Double-click to toggle">
+    <button>Sign In</button>
+  </div>
+  </form>
+
+<script>
+/* 1. Hold */
+const holdPass = document.getElementById("holdPass");
+holdPass.addEventListener("mousedown", function() {
+  holdPass.type = "text";
+});
+
+holdPass.addEventListener("mouseup",   () => { holdPass.type = "password"; });
+holdPass.addEventListener("mouseleave",() => { holdPass.type = "password"; });
+
+/* 2. Hover */
+const hoverPass = document.getElementById("hoverPass");
+hoverPass.addEventListener("mouseover", () => { hoverPass.type = "text"; });
+hoverPass.addEventListener("mouseout",  () => { hoverPass.type = "password"; });
+
+/* 3. Click Toggle */
+const togglePass = document.getElementById("togglePass");
+const showLine   = document.getElementById("showLine");
+
+togglePass.addEventListener("click", () => {
+  if (togglePass.type === "password") {
+    togglePass.type = "text";
+    showLine.textContent = "Password: " + togglePass.value;
+  } else {
+    togglePass.type = "password";
+    showLine.textContent = "";
+  }
+});
+
+/* 4. Double Click */
+const dblPass = document.getElementById("dblPass");
+dblPass.addEventListener("dblclick", () => {
+  dblPass.type = (dblPass.type === "password") ? "text" : "password";
+});
+</script>
+</body>
+</html>

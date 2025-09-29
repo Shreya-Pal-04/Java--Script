@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Sign In (Arrow Functions)</title>
+</head>
+<body>
+  <h2>Register</h2>
+  <input type="text" id="regUser" placeholder="Enter username">
+  <input type="password" id="regPass" placeholder="Enter password">
+  <button id="registerBtn">Register</button>
+
+  <h2>Sign In</h2>
+  <input type="text" id="loginUser" placeholder="Enter username">
+  <input type="password" id="loginPass" placeholder="Enter password">
+  <button id="loginBtn">Sign In</button>
+
+  <p id="msg"></p>
+
+  <script>
+    // Register user (arrow function)
+    document.getElementById("registerBtn").addEventListener("click", () => {
+      let user = document.getElementById("regUser").value;
+      let pass = document.getElementById("regPass").value;
+
+      localStorage.setItem("username", user);
+      localStorage.setItem("password", pass);
+
+      document.getElementById("msg").innerText = "✅ Registered Successfully!";
+    });
+
+    // Login user (arrow function)
+    document.getElementById("loginBtn").addEventListener("click", () => {
+      let user = document.getElementById("loginUser").value;
+      let pass = document.getElementById("loginPass").value;
+
+      let savedUser = localStorage.getItem("username");
+      let savedPass = localStorage.getItem("password");
+
+      document.getElementById("msg").innerText =
+        (user === savedUser && pass === savedPass)
+        ? "✅ Login Successful!"
+        : "❌ Invalid Username or Password";
+    });
+  </script>
+</body>
+</html>

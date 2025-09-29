@@ -1,0 +1,48 @@
+<div id="box" style="height: 50px; width: 50px; margin-top: 5px; border-radius: 50%;"></div>
+<div id="box" style="height: 50px; width: 50px; margin-top: 5px; border-radius: 50%;"></div>
+<div id="box" style="height: 50px; width: 50px; margin-top: 5px; border-radius: 50%;"></div>
+<div id="box" style="height: 50px; width: 50px; margin-top: 5px; border-radius: 50%;"></div>
+<div id="box" style="height: 50px; width: 50px; margin-top: 5px; border-radius: 50%;"></div>
+<div id="box" style="height: 50px; width: 50px; margin-top: 5px; border-radius: 50%;"></div>
+<div id="box" style="height: 50px; width: 50px; margin-top: 5px; border-radius: 50%;"></div>
+<div id="box" style="height: 50px; width: 50px; margin-top: 5px; border-radius: 50%;"></div>
+<div id="box" style="height: 50px; width: 50px; margin-top: 5px; border-radius: 50%;"></div>
+<div id="box" style="height: 50px; width: 50px; margin-top: 5px; border-radius: 50%;"></div>
+
+<div id="container"></div>
+
+<script>
+    var box = document.querySelectorAll("#box");
+
+    function color(){
+        var r = Math.floor(Math.random() * 256);
+        var g = Math.floor(Math.random() * 256);
+        var b = Math.floor(Math.random() * 256);
+
+        return `rgb(${r},${g},${b})`;
+    }
+
+    window.addEventListener('load', () =>{
+        for(let i=0; i<box.length; i++){
+            box[i].style.backgroundColor = color();
+        }
+    });
+    let container = document.getElementById("container");
+
+    function color(){
+        let r = Math.floor(Math.random() * 256);
+        let g = Math.floor(Math.random() * 256);
+        let b = Math.floor(Math.random() * 256);
+        return `rgb(${r},${g},${b})`;
+    }
+
+    for(let i=0; i<50; i++){
+        container.innerHTML += `<div style="
+            height:200px; 
+            width:200px; 
+            margin:5px; 
+            background:${color()};
+            display:inline-block;">
+        </div>`;
+    }
+</script>

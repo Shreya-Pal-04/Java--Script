@@ -1,0 +1,31 @@
+<div class="box" style="background-color: aquamarine; margin-top: 5px; height: 100px; width: 100px;"></div>
+<div class="box" style="background-color: aquamarine; margin-top: 5px;height: 100px; width: 100px;"></div>
+<div class="box" style="background-color: aquamarine; margin-top: 5px; height: 100px; width: 100px;"></div>
+<div class="box" style="background-color: aquamarine; margin-top: 5px; height: 100px; width: 100px;"></div>
+<div class="box" style="background-color: aquamarine; margin-top: 5px; height: 100px; width: 100px;"></div>
+<script>
+    let box = document.querySelectorAll(".box");
+    var t = true;
+
+    for(var i=0; i<box.length; i++){
+        box[i].addEventListener('click',move);
+
+        function move(){
+            if(t){
+                this.style.backgroundColor = "red";
+                this.style.transition = "1s";
+                this.style.borderRadius = "50%";
+                this.style.marginLeft = "20%";
+                t = false;
+            }else{
+                this.style.backgroundColor = "aquamarine";
+                this.style.transition = "1s";
+                this.style.borderRadius = "0%";
+                this.style.marginLeft = "0%";
+                t = true;
+            }
+        }
+     }
+     
+    
+</script>
