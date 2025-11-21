@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body{
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #00d2ff, #3a47d5);
+        }
+
+        .container{
+            width: 380px;
+            background: #fff;
+            padding: 40px 35px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        h2{
+            text-align: center;
+            font-size: 26px;
+            font-weight: 700;
+            color: #002ea6;
+            margin-bottom: 25px;
+        }
+
+        .input-box{
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        .input-box input{
+            width: 100%;
+            padding: 13px 45px;
+            border: none;
+            background: #f2f5f7;
+            border-radius: 6px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .input-box i{
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            transform: translateY(-50%);
+            font-size: 17px;
+            color: #777;
+        }
+
+        .btn{
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 25px;
+            margin-top: 10px;
+            background: linear-gradient(to right, #3b3fda, #00c6ff);
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover{
+            opacity: 0.9;
+        }
+        .toggle{
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Create Account</h2>
+
+        <form onsubmit="return data()">
+
+            <div class="input-box">
+                <i>👤</i>
+                <input type="text" id="name" placeholder="Enter Full Name">
+            </div>
+
+            <div class="input-box">
+                <i>📧</i>
+                <input type="email" id="id" placeholder="Enter Email">
+            </div>
+
+            <div class="input-box">
+                <i>📱</i>
+                <input type="text" id="contact" placeholder="Enter Contact Number">
+            </div>
+
+            <div class="input-box">
+                <i>🔒</i>
+                <input type="password" id="pass" placeholder="Enter Password">
+                <span class="toggle" onclick="togglePass('pass', this)">👁️</span>
+            </div>
+
+            <div class="input-box">
+                <i>🔒</i>
+                <input type="password" id="con-pass" placeholder="Confirm Password">
+                <span class="toggle" onclick="togglePass('con-pass', this)">👁️</span>
+            </div>
+
+            <button class="btn" type="submit">Sign Up</button>
+
+        </form>
+    </div>
+
+    <script>
+        function data(){
+            var name = document.getElementById("name").value;
+            var id = document.getElementById("id").value;
+            var contact = document.getElementById("contact").value;
+            var pass = document.getElementById("pass").value;
+            var conpass = document.getElementById("con-pass").value;
+
+            if(name == "" || id=="" || contact == "" || pass == "" || conpass == ""){
+                alert("All are mendatory.");
+                return false;
+            }
+            else if(contact.length != 10){
+                alert("Number should be of 10 Digits! Please enter valid number.");
+                return false;
+            }
+            else if(isNaN(contact)){
+                alert("Only Numbers are allowed! Please enter valid Numbers.");
+                return false;
+            }
+            else if(pass != conpass){
+                alert("Please Enter Same Password.");
+                return false;
+            }
+            else{
+                alert("Account Created Successfully!");
+                return true;
+            }
+
+        }
+        function togglePass(id, el){
+            const input = document.getElementById(id);
+
+            if(input.type === "password"){
+                input.type = "text";
+                el.textContent = "🙈";   // eye-off icon
+            } else {
+                input.type = "password";
+                el.textContent = "👁️";  // eye icon
+            }
+            }
+    </script>
+
+</body>
+</html>

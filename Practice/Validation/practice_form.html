@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<body>
+<form onsubmit="return data()">
+
+    User Name : <input type="text" id="name"><br><br>
+    User Id : <input type="email" id="id"><br><br>
+    Contact : <input type="text" id="contact"><br><br>
+    Password : <input type="password" id="pass"><br><br>
+    Confirm Password : <input type="password" id="con-pass"><br><br><br>
+    <input type="submit"  value="Submit">
+</form>
+<script>
+    function data(){
+        var name = document.getElementById("name").value;
+        var id = document.getElementById("id").value;
+        var contact = document.getElementById("contact").value;
+        var pass = document.getElementById("pass").value;
+        var conpass = document.getElementById("con-pass").value;
+
+        if(name == "" || id=="" || contact == "" || pass == "" || conpass == ""){
+            alert("All are mendatory.");
+            return false;
+        }
+        else if(contact.length != 10){
+            alert("Number should be of 10 Digits! Please enter valid number.");
+            return false;
+        }
+        else if(isNaN(contact)){
+            alert("Only Numbers are allowed! Please enter valid Numbers.")
+            return false;
+        }
+        else if(pass != conpass){
+            alert("Please Enter Same Password.");
+            return false;
+        }
+        else{
+            return true;
+        }
+
+    }
+</script>
+</body>
+</html>

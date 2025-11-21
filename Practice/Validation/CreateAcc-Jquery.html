@@ -1,0 +1,148 @@
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: "Poppins", sans-serif;
+        background: #0d1117;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .form-box {
+        background: rgba(255, 255, 255, 0.05);
+        width: 380px;
+        padding: 35px 30px;
+        border-radius: 20px;
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 8px 25px rgba(137, 124, 225, 0.5);
+    }
+
+    .form-box h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #58a6ff;
+        font-size: 26px;
+    }
+
+    .form-box input {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #30363d;
+        background: #161b22;
+        color: #fff;
+        border-radius: 10px;
+        margin-top: 8px;
+        margin-bottom: 15px;
+        outline: none;
+        transition: 0.3s;
+        font-size: 14px;
+    }
+
+    .form-box input:focus {
+        border-color: #58a6ff;
+        box-shadow: 0 0 8px #58a6ff;
+    }
+
+    .form-box input[type="submit"] {
+        background: #238636;
+        color: #fff;
+        font-size: 18px;
+        border: none;
+        cursor: pointer;
+        transition: 0.3s;
+        margin-top: 10px;
+    }
+
+    .form-box input[type="submit"]:hover {
+        background: #2ea043;
+    }
+
+    label {
+        font-weight: bold;
+        color: #c9d1d9;
+        font-size: 14px;
+    }
+
+    /* Custom error message styling */
+    .error-msg {
+        color: #ff6b81;
+        font-size: 12px;
+        font-weight: 500;
+        display: block;
+        margin-top: -10px;
+        margin-bottom: 10px;
+        font-family: monospace;
+    }
+</style>
+
+<div class="form-box">
+    <h2>Create Account</h2>
+
+    <form action="" id="myform">
+        <label><br>Name</label>
+        <input type="text" id="name" name="name">
+
+        <label><br>Gmail</label>
+        <input type="email" id="gmail" name="gmail">
+
+        <label><br>Contact</label>
+        <input type="text" id="contact" name="contact">
+
+        <label><br>Password</label>
+        <input type="password" id="pass" name="pass">
+
+        <label><br>Confirm Password</label>
+        <input type="password" id="conpass" name="conpass">
+
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+
+<script>
+    jQuery.validator.setDefaults({
+        debug: false,
+        success: "valid"
+    });
+
+    $("#myform").validate({
+        rules: {
+            name: { required: true, minlength: 3 },
+            gmail: { required: true, email: true },
+            contact: { required: true, digits: true, minlength: 10, maxlength: 10 },
+            pass: { required: true, minlength: 4 },
+            conpass: { required: true, equalTo: "#pass" },
+        },
+
+        messages:{
+            name: { 
+                required : '<span class="error-msg">Name required!</span>', 
+                minlength: '<span class="error-msg">Minimum 3 letters!</span>' 
+            },
+            gmail: { 
+                required : '<span class="error-msg">Gmail required!</span>', 
+                email: '<span class="error-msg">Enter valid email!</span>' 
+            },
+            contact: { 
+                required: '<span class="error-msg">Contact required!</span>', 
+                digits: '<span class="error-msg">Only digits allowed!</span>', 
+                minlength:'<span class="error-msg">Enter 10 digits!</span>', 
+                maxlength:'<span class="error-msg">Only 10 digits valid!</span>'
+            },
+            pass: { 
+                required: '<span class="error-msg">Password required!</span>', 
+                minlength: '<span class="error-msg">At least 4 characters!</span>' 
+            },
+            conpass: { 
+                required: '<span class="error-msg">Enter correct password!</span>', 
+                equalTo: '<span class="error-msg">Password not matching!</span>' 
+            }
+        }
+    });
+</script>

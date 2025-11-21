@@ -1,0 +1,37 @@
+
+<form action="" id="myform">
+    Name <input type="text" id="name" name="name"><br><br>
+    Gmail <input type="email" id="gmail" name="gmail"><br><br>
+    <input type="submit" value="Submit">
+</form>
+
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+<script>
+    // just for the demos, avoids form submit
+    jQuery.validator.setDefaults({
+    debug: false,
+    success: "valid"
+    });
+    $( "#myform" ).validate({
+    rules: {
+        name: {
+        required: true,
+        minlength: 3,
+        },
+        gmail: {
+            required: true,
+            email: true
+        }
+    },
+    messages:{
+        name: {
+            required : '<span style="color:red" ><br>Name required.!</span>'
+        },
+        gmail: {
+            required : '<span style="color:red" ><br>Gmail required.!</span>'
+        }
+    }
+    });
+</script>

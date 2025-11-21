@@ -103,55 +103,109 @@
 </head>
 <body>
 
-<div class="calculator">
+  <div class="calculator">
     <input type="text" id="res"><br>
     <div class="buttons">
-        <button id="ac">AC</button>
-        <button id="back">&lt;=</button>
-        <button id="sign">+/-</button>
-        <button class="operator">/</button>
+      <button id="ac">AC</button>
+      <button id="back">&lt;=</button>
+      <button id="sign">+/-</button>
+      <button class="operator">/</button>
 
-        <button class="number">7</button>
-        <button class="number">8</button>
-        <button class="number">9</button>
-        <button class="operator">*</button>
+      <button class="number">7</button>
+      <button class="number">8</button>
+      <button class="number">9</button>
+      <button class="operator">*</button>
 
-        <button class="number">4</button>
-        <button class="number">5</button>
-        <button class="number">6</button>
-        <button class="operator">-</button>
+      <button class="number">4</button>
+      <button class="number">5</button>
+      <button class="number">6</button>
+      <button class="operator">-</button>
 
-        <button class="number">1</button>
-        <button class="number">2</button>
-        <button class="number">3</button>
-        <button class="operator">+</button>
+      <button class="number">1</button>
+      <button class="number">2</button>
+      <button class="number">3</button>
+      <button class="operator">+</button>
 
-        <button class="operator">%</button>
-        <button class="number">0</button>
-        <button class="number">.</button>
-        <input type="button" value="=" id="output">
+      <button class="operator">%</button>
+      <button class="number">0</button>
+      <button class="number">.</button>
+      <input type="button" value="=" id="output">
     </div>
-</div>
+  </div>
 
-<script>
-let box = document.querySelectorAll("button");
-let output = document.querySelector("#output");
-let res = document.querySelector("#res");
+  <script>
+    let res = document.querySelector("#res");
+    let output = document.querySelector("#output");
+    let box = document.querySelectorAll("button");
+    let ac = document.querySelector("#ac");
+    let back = document.querySelector("#back");
+    let sign = document.querySelector("#sign");
 
-for(var i=0; i<box.length; i++){
-    box[i].addEventListener('click', cal);
-}
+    // Clear Input
+    ac.addEventListener('click', () => {
+      res.value = "";
+    });
 
-function cal(){
-    var val = this.innerText;
-    res.value = res.value + val;
-}
+    //Remove Last Character
+    back.addEventListener('click', () => {
+      let data = res.value;
+      res.value = data.slice(0, -1);
+    });
 
-output.addEventListener('click', function(){
-    var rs = res.value;
-    res.value = eval(rs);
-});
-</script>
+    //Inverse Sign
+    sign.addEventListener('click', () => {
+      let data = res.value;
+      let pos;
 
+      // find last operator position
+      for (let i = data.length - 1; i >= 0; i--) {
+        if (data[i] == '+' || data[i] == '-' || data[i] == '*' || data[i] == '/') {
+          pos = i;
+          break;
+        }
+      }
+
+      // get last number
+      let lastNumber = Number(data.slice(pos + 1));
+
+      // toggle sign
+      if (data[pos + 1] == '-') {
+        res.value = data.slice(0, pos + 1) + Math.abs(lastNumber);
+      } else {
+        res.value = data.slice(0, pos + 1) + (-lastNumber);
+      }
+    });
+
+    // === 4. Output result (=) ===
+    output.addEventListener('click', () => {
+      try {
+        res.value = eval(res.value);
+      } catch {
+        res.value = "Error";
+      }
+    });
+
+    // === 5. Button Click Function ===
+    for (let i = 0; i < box.length; i++) {
+      box[i].addEventListener('click', calc);
+    }
+
+    function calc() {
+      let val = this.innerText;
+      let lastVal = res.value.charAt(res.value.length - 1);
+
+      // prevent duplicate operators
+      if (lastVal == '+' || lastVal == '-' || lastVal == '*' || lastVal == '/') {
+        if (val == '+' || val == '-' || val == '*' || val == '/') {
+          return;
+        }
+      }
+
+      // don't add text of AC, <=, or +/-
+      if (val !== 'AC' && val !== '<=' && val !== '+/-' && val !== '=') {
+        res.value += val;
+      }
+    }
+  </script>
 </body>
 </html>
