@@ -6,7 +6,6 @@
     <title>Create Account</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-
     <style>
         *{
             margin: 0;
@@ -14,7 +13,6 @@
             box-sizing: border-box;
             font-family: "Poppins", sans-serif;
         }
-
         body{
             height: 100vh;
             display: flex;
@@ -22,7 +20,6 @@
             align-items: center;
             background: linear-gradient(135deg, #00d2ff, #3a47d5);
         }
-
         .container{
             width: 380px;
             background: #fff;
@@ -30,7 +27,6 @@
             border-radius: 12px;
             box-shadow: 0 6px 20px rgba(0,0,0,0.15);
         }
-
         h2{
             text-align: center;
             font-size: 26px;
@@ -38,7 +34,6 @@
             color: #002ea6;
             margin-bottom: 25px;
         }
-
         .input-box{
             position: relative;
             margin-bottom: 15px;
@@ -46,7 +41,7 @@
 
         .input-box input{
             width: 100%;
-            padding: 13px 45px;
+            padding: 13px 18px;
             border: none;
             background: #f2f5f7;
             border-radius: 6px;
@@ -55,14 +50,25 @@
         }
 
         .input-box i{
-            position: absolute;
+            position: relative;
             top: 50%;
             left: 15px;
             transform: translateY(-50%);
             font-size: 17px;
             color: #777;
+            padding-right: 5px;
+            text-align: center;
         }
-
+        .input-box .toggle {
+        position: absolute;
+        right: 15px;
+        top: 20%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        }
+        .input-box.password input {
+        padding-right: 45px;
+        }
         .btn{
             width: 100%;
             padding: 12px;
@@ -76,6 +82,10 @@
             cursor: pointer;
             transition: 0.3s;
         }
+        .input-box.password input {
+            padding-right: 45px; /* Right icon ke liye jagah */
+            padding-left: 15px;  /* Left se normal padding */
+        }
 
         .btn:hover{
             opacity: 0.9;
@@ -87,49 +97,38 @@
         transform: translateY(-50%);
         cursor: pointer;
         font-size: 18px;
-        }
+        color: #555;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
     </style>
 </head>
-
 <body>
-
     <div class="container">
         <h2>Create Account</h2>
-
-        <form onsubmit="return data()">
-
+            <form onsubmit="return data()">
             <div class="input-box">
-                <i>👤</i>
                 <input type="text" id="name" placeholder="Enter Full Name">
             </div>
-
             <div class="input-box">
-                <i>📧</i>
                 <input type="email" id="id" placeholder="Enter Email">
             </div>
-
             <div class="input-box">
-                <i>📱</i>
                 <input type="text" id="contact" placeholder="Enter Contact Number">
             </div>
-
-            <div class="input-box">
-                <i>🔒</i>
+            <div class="input-box password">
                 <input type="password" id="pass" placeholder="Enter Password">
-                <span class="toggle" onclick="togglePass('pass', this)">👁️</span>
+                <span class="toggle" onclick="togglePass('pass', this)"><i class="fa-regular fa-eye-slash"></i></span>
             </div>
-
-            <div class="input-box">
-                <i>🔒</i>
+            <div class="input-box password">
                 <input type="password" id="con-pass" placeholder="Confirm Password">
-                <span class="toggle" onclick="togglePass('con-pass', this)">👁️</span>
+                <span class="toggle" onclick="togglePass('con-pass', this)"><i class="fa-regular fa-eye-slash"></i></span>
             </div>
-
-            <button class="btn" type="submit">Sign Up</button>
-
+            <button class="btn" type="submit">Create Account</button>
         </form>
     </div>
-
     <script>
         function data(){
             var name = document.getElementById("name").value;
@@ -155,23 +154,24 @@
                 return false;
             }
             else{
-                alert("Account Created Successfully!");
+                alert("Account Created Successfully!🎊");
                 return true;
             }
-
         }
         function togglePass(id, el){
-            const input = document.getElementById(id);
+        const input = document.getElementById(id);
+        const icon = el.querySelector("i");
 
-            if(input.type === "password"){
-                input.type = "text";
-                el.textContent = "🙈";   // eye-off icon
-            } else {
-                input.type = "password";
-                el.textContent = "👁️";  // eye icon
-            }
-            }
+        if(input.type === "password"){
+            input.type = "text";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+        } else {
+            input.type = "password";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+        }
+        }
     </script>
-
 </body>
 </html>

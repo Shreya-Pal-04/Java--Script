@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown</title>
+</head>
+<style>
+  body{
+        font-family: 'Poppins', sans-serif;
+        margin:0;
+        padding:0;
+        background: #0e0e0e;
+        color:white;
+        text-align:center;
+    }
+  .centerBox{
+        margin-top: 120px;
+    }
+    #demo{
+        font-size: 70px;
+        font-weight: bold;
+        letter-spacing: 3px;
+        margin-top: 20px;
+        animation: pulse 1.5s infinite ease-in-out;
+    }
+    #mainWebsite{
+    display: none;
+    }
+</style>
+<body>
+    
+<div id="introScreen" class="centerBox">
+    <h1>Welcome to <span style="color:#4BC0C8;">Nirlep Forex Academy</span></h1>
+    <div id="exciteText">Boost your financial journey…<br>  
+        Level up your Forex trading skills!</div>
+     <h1 id="demo"></h1>
+
+    <div id="alertText">
+        ⚠ This website will be visible for only <b>1 minutes</b>.<br>
+        After that, you must wait <b>1 minute</b> to access it again.
+    </div>
+</div>
+
+<div id="mainWebsite">
+    <h2>Nirlep Forex Academy – Official Website</h2>
+    <p>Your website content goes here...</p>
+</div>
+
+<div id="afterScreen" class="centerBox" style="display:none;">
+    <h1 style="color:red;">Time is Over ⏳</h1>
+    <p>You can access this website again after <b>60 seconds</b>.</p>
+    <h2 id="timerDisplay"></h2>
+</div>
+
+<script>
+
+// Set the date we're counting down to
+var t = 120;
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get today's date and time
+  var now = new Date().getTime();
+
+  // Find the distance between now and the count down date
+  var distance = t-- * 1000;
+
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Display the result in the element with id="demo"
+  document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+  + minutes + "m " + seconds + "s ";
+
+  // If the count down is finished, write some text
+  if (distance < 0) {
+
+    clearInterval(x);
+
+    // Hide intro screen
+    document.getElementById("introScreen").style.display = "none";
+
+    // Show after message screen
+    document.getElementById("mainWebsite").style.display = "block";
+    startWebsiteVisibleTimer();
+  }
+
+}, 1000);
+
+function startWebsiteVisibleTimer(){
+    let end = Date.now() + (1 * 60 * 1000); // 1 minute
+
+    let interval = setInterval(() => {
+        if(Date.now() >= end){
+            clearInterval(interval);
+            lockWebsite();
+        }
+    }, 1000);
+}
+
+function lockWebsite(){
+    document.getElementById("mainWebsite").style.display = "none";
+    document.getElementById("afterScreen").style.display = "block";
+
+    startLockedTimer();
+}
+function startLockedTimer(){
+    let time = 60;
+
+    let interval = setInterval(() => {
+        document.getElementById("timerDisplay").innerText = time + " sec remaining";
+        time--;
+
+        if(time < 0){
+            clearInterval(interval);
+            restartProcess();
+        }
+    }, 1000);
+}
+// Restart whole process after time over
+function restartProcess(){
+    
+    document.getElementById("afterScreen").style.display = "none";
+    document.getElementById("introScreen").style.display = "block";
+
+    // Reset new countdown 4 minutes from now
+    countDownDate = new Date().getTime() + (4 * 60 * 1000);
+
+    // Start countdown again
+    x = setInterval(countdownFunction, 1000);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<div style="height: 500px; background-color:pink;"></div>
+<div style="height: 500px; background-color:peachpuff;"></div>
+<div style="height: 500px; background-color:plum;"></div>
+<div style="height: 500px; background-color:purple;"></div>
+<div style="height: 500px; background-color:peru;"></div>
+
+<div id="box" style="position: fixed; 
+        color: aliceblue; 
+        background-color: black; 
+        border-radius: 50%; 
+        bottom: 20px; 
+        right: 20px; 
+        height: 50px; 
+        width: 50px; 
+        display: flex; 
+        justify-content: center;
+        align-items: center;">%</div>
+
+        
+
+<script>
+    let box = document.getElementById("box");
+
+    window.addEventListener("scroll",()=>{
+        let scrollY = window.scrollY;
+        let innerHeight = window.innerHeight;
+        let bodyHeight = document.documentElement.scrollHeight;
+        
+        let scrollPercent = (scrollY / (bodyHeight - innerHeight)) * 100;
+        scrollPercent = Math.max(0, Math.min(100, scrollPercent));
+        console.log(scrollPercent.toFixed(2));
+
+        box.innerText = Math.round(scrollPercent) + "%";
+    })
+</script>

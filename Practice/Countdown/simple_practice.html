@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nirlep Forex Academy</title>
+
+<style>
+    body{
+        font-family: 'Poppins', sans-serif;
+        margin:0;
+        padding:0;
+        background: #0e0e0e;
+        color:white;
+        text-align:center;
+    }
+    .centerBox{
+        margin-top: 120px;
+    }
+    #bigCountdown{
+        font-size: 70px;
+        font-weight: bold;
+        letter-spacing: 3px;
+        margin-top: 20px;
+        animation: pulse 1.5s infinite ease-in-out;
+    }
+    @keyframes pulse{
+        0% {transform: scale(1); opacity:0.8;}
+        50%{transform: scale(1.1); opacity:1;}
+        100%{transform: scale(1); opacity:0.8;}
+    }
+    #exciteText{
+        font-size: 22px;
+        margin-top: 20px;
+        color:#f5c542;
+    }
+    #alertText{
+        font-size: 14px;
+        margin-top: 10px;
+        opacity:0.8;
+    }
+    #mainWebsite{
+        display:none;
+        padding: 20px;
+        animation: fadeIn 1s forwards;
+    }
+    @keyframes fadeIn{
+        from{opacity:0;}
+        to{opacity:1;}
+    }
+</style>
+</head>
+<body>
+
+<div id="introScreen" class="centerBox">
+    <h1>Welcome to <span style="color:#4BC0C8;">Nirlep Forex Academy</span></h1>
+    <div id="exciteText">Boost your financial journey…<br>  
+        Level up your Forex trading skills!</div>
+    <div id="bigCountdown"></div>
+
+    <div id="alertText">
+        ⚠ This website will be visible for only <b>4 minutes</b>.<br>
+        After that, you must wait <b>15 minutes</b> to access it again.
+    </div>
+</div>
+
+<!-- Your Website Section -->
+<div id="mainWebsite">
+    <h2>Nirlep Forex Academy – Official Website</h2>
+    <p>Your website content goes here...</p>
+</div>
+
+<script>
+function startIntroCountdown() {
+    let end = Date.now() + (10 * 1000);
+
+    let timer = setInterval(() => {
+        let left = end - Date.now();
+
+        if(left <= 0){
+            clearInterval(timer);
+            document.getElementById("introScreen").style.display = "none";
+            showMainWebsite();
+            return;
+        }
+
+        let m = Math.floor(left / 60000);
+        let s = Math.floor((left % 60000) / 1000);
+
+        document.getElementById("bigCountdown").innerHTML =
+            `${m} : ${s < 10 ? "0"+s : s}`;
+
+    }, 1000);
+}
+
+function showMainWebsite(){
+    document.getElementById("mainWebsite").style.display = "block";
+    startWebsiteVisibleTimer();
+}
+
+// 4 minutes
+function startWebsiteVisibleTimer(){
+    let end = Date.now() + (10 * 1000);
+
+    let interval = setInterval(() => {
+        if(Date.now() >= end){
+            clearInterval(interval);
+            lockWebsite();
+        }
+    }, 1000);
+}
+
+// hide website
+function lockWebsite(){
+    document.getElementById("mainWebsite").style.display = "none";
+
+    document.getElementById("introScreen").style.display = "block";
+    document.getElementById("exciteText").innerHTML =
+        "Please wait… website is temporarily locked.";
+    start15MinLock();
+}
+function start15MinLock(){
+    let end = Date.now() + (15 * 60 * 1000);
+    let timer = setInterval(() => {
+        let left = end - Date.now();
+        if(left <= 0){
+            clearInterval(timer);
+            resetIntroText();
+            startIntroCountdown();
+            return;
+        }
+        let m = Math.floor(left / 60000);
+        let s = Math.floor((left % 60000) / 1000);
+        document.getElementById("bigCountdown").innerHTML =
+            `Unlock in ${m} : ${s < 10 ? "0"+s : s}`;
+    }, 1000);
+}
+function resetIntroText(){
+    document.getElementById("exciteText").innerHTML =
+        "Boost your financial journey…<br>Level up your Forex trading skills!";
+}
+// Start the whole flow
+startIntroCountdown();
+</script>
+</body>
+</html>
