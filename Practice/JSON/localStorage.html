@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalStorage Test</title>
+</head>
+<body>
+
+    <h2>User Form 3</h2>
+    <input type="text" id="username" placeholder="Enter Your Name"> <br><br>
+    <input type="text" id="course" placeholder="Enter Course"> <br><br>
+    <button id="btn">Submit</button><br><br><br>
+
+    <table border="1" cellpadding="10" callspacing="10" id="userTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Course</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+<script>
+let users = [];
+let updateIndex = null;
+if(localStorage.getItem("userData")){
+    users = JSON.parse(localStorage.getItem("userData"));
+}
+loadTable();
+document.getElementById("btn").addEventListener("click", () => {
+    let name = document.getElementById("username").value;
+    let course = document.getElementById("course").value;
+    if(!name || !course){
+        alert("Please fill all fields!");
+        return;
+    }
+    if(updateIndex === null){
+        let userObj = {
+            userName: name,
+            userCourse: course
+        };
+        users.push(userObj);
+    } 
+    else {
+        // UPDATE EXISTING USER
+        users[updateIndex].userName = name;
+        users[updateIndex].userCourse = course;
+
+        updateIndex = null;  
+        document.getElementById("btn").innerText = "Submit"; // back to submit button
+    }
+
+    localStorage.setItem("userData", JSON.stringify(users));
+    loadTable();
+    document.getElementById("username").value = "";
+    document.getElementById("course").value = "";
+});
+function loadTable(){
+    let tableBody = document.querySelector("#userTable tbody");
+    tableBody.innerHTML = "";
+
+    users.forEach((user, index) => {
+        tableBody.innerHTML += `
+            <tr>
+                <td>${user.userName}</td>
+                <td>${user.userCourse}</td>
+                <td><button onclick="startUpdate(${index})">Update</button></td>
+                <td><button onclick="deleteUser(${index})">Delete</button></td>
+            </tr>
+        `;
+    });
+}
+function startUpdate(index){
+    updateIndex = index;
+
+    document.getElementById("username").value = users[index].userName;
+    document.getElementById("course").value = users[index].userCourse;
+
+    document.getElementById("btn").innerText = "Update";  // change button
+}
+function deleteUser(index){
+    users.splice(index, 1);
+    localStorage.setItem("userData", JSON.stringify(users));
+    loadTable();
+}
+</script>
+
+</body>
+</html>
