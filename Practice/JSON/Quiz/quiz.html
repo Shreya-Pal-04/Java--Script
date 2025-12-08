@@ -9,14 +9,17 @@
 <body>
 
 <div class="quiz-container">
-    <h2 class="title">Quick Quiz 2</h2>
+    <h2 class="title">Quick Quiz</h2>
     <p id="timer" class="timer">30s</p>
 
     <h3 id="question"></h3>
     <div id="options" class="options"></div>
     <p id="progress" class="progress"></p>
 </div>
-
+<div id="resultBox" class="hidden result-box">
+    <h2 id="congratsText"></h2>
+    <p id="finalScore"></p>
+</div>
 <script>
     const questions =[
     {
@@ -34,6 +37,7 @@
 let index = 0;
 let timeLeft = 30;
 let timerInterval;
+let score = 0;
 
 const questionEl = document.getElementById("question");
 const optsEl = document.getElementById("options");
@@ -76,6 +80,7 @@ function checkAnswer(selected){
     options.forEach(o => o.style.pointerEvents = "none");
     if(selected === questions[index].answer){
         options[selected].classList.add("correct");
+        score++;
     } else {
         options[selected].classList.add("wrong");
     }
@@ -90,13 +95,15 @@ function nextQuestion(){
     }
 }
 function quizEnd(){
-    questionEl.textContent = "Quiz Completed!";
-    optsEl.innerHTML = "";
     timerEl.style.display = "none";
     progressEl.textContent = "";
+
+    document.querySelector(".quiz-container").innerHTML = `
+        <h2 class="congrats">🎉 Congratulations! 🎉</h2>
+        <p class="score-text">Your Score: <b>${score}</b> / ${questions.length}</p>
+    `;
 }
 loadQuestion();
-
 </script>
 </body>
 </html>

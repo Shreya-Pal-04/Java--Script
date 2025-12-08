@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookMyShow</title>
+    <link rel="icon" href="img/iicon-removebg-preview.png">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="bms-header">
+    <div class="left">
+        <p>book<img src="https://in.bmscdn.com/webin/common/icons/logo.svg" class="logo">show</p>
+    </div>
+    <div class="search-box">
+        <i class="icon">🔍</i>
+        <input type="text" placeholder="Search for Movies, Events, Plays, Sports and Activities">
+    </div>
+    <div class="right">
+        <button class="signin">Sign In</button>
+        <div class="menu">☰</div>
+    </div>
+</header>
+<nav class="bms-subnav">
+    <ul>
+        <li><a href="book.html">Show Movies</a></li>
+    </ul>
+</nav>
+<!-- form start here -->
+<div class="movie-form-container">
+    <h2>Add Movie</h2>
+
+    <form id="movieForm">
+
+        <div class="form-row">
+            <label>Title</label>
+            <input type="text" id="title">
+        </div>
+
+        <div class="form-row">
+            <label>Rating</label>
+            <div class="rating-box">
+                <span class="star" data-val="1">★</span>
+                <span class="star" data-val="2">★</span>
+                <span class="star" data-val="3">★</span>
+                <span class="star" data-val="4">★</span>
+                <span class="star" data-val="5">★</span>
+                <span id="ratingValue" class="rate-text">0/5</span>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <label>Voting</label>
+            <input type="number" id="votes">
+        </div>
+
+        <div class="form-row">
+            <label>Duration</label>
+            <input type="text" id="duration" placeholder="145 mins">
+        </div>
+
+        <!-- GENRE -->
+        <div class="form-row">
+            <label>Genre</label>
+            <div class="tag-group" id="genreGroup">
+                <span class="tag">Comedy</span>
+                <span class="tag">Horror</span>
+                <span class="tag">Romantic</span>
+                <span class="tag">Traditional</span>
+            </div>
+        </div>
+
+        <!-- CERTIFICATION -->
+        <div class="form-row">
+            <label>Certificate</label>
+            <select id="certification">
+                <option value="UA">UA</option>
+                <option value="UAE">UAE</option>
+            </select>
+        </div>
+
+        <div class="form-row">
+            <label>Release</label>
+            <input type="date" id="date">
+        </div>
+
+        <!-- MOVIE TYPE -->
+        <div class="form-row">
+            <label>Type</label>
+            <div class="tag-group" id="typeGroup">
+                <span class="tag">2D</span>
+                <span class="tag">3D</span>
+            </div>
+        </div>
+
+        <div class="form-area">
+            <label>Movie Plot</label>
+            <textarea id="plot"></textarea>
+        </div>
+
+        <div class="form-area">
+            <label>Image URL</label>
+            <textarea id="imgURL"></textarea>
+        </div>
+
+        <button class="submit-btn">Save</button>
+    </form>
+</div>
+<script src="form.js"></script>
+</body>
+</html>
