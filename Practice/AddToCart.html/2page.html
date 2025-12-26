@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Single Product</title>
+</head>
+<body>
+
+<h2>
+  <a href="cart.html">Cart (<span id="count">0</span>)</a>
+</h2>
+
+<img id="productImage" width="200"><br>
+<h3 id="title"></h3>
+<p id="price"></p>
+
+<select id="quantity">
+  <option value="1">1</option>
+  <option value="2">2</option>
+  <option value="3">3</option>
+  <option value="4">4</option>
+  <option value="5">5</option>
+</select><br><br>
+
+<button onclick="addToCart()">Add to Cart</button>
+
+<script>
+cartCount();
+
+let productId = JSON.parse(localStorage.getItem("productId"));
+let productData;
+
+fetch(`https://fakestoreapi.com/products/${productId}`)
+.then(async (res)=>{
+  productData = await res.json();
+  document.getElementById("productImage").src = productData.image;
+  document.getElementById("title").innerText = productData.title;
+  document.getElementById("price").innerText = "₹ " + productData.price;
+});
+
+function addToCart(){
+  let qty = document.getElementById("quantity").value;
+  let cart = JSON.parse(localStorage.getItem("cartData")) || [];
+
+  productData.qty = qty;
+  cart.push(productData);
+
+  localStorage.setItem("cartData", JSON.stringify(cart));
+  cartCount();
+  alert("Added to cart");
+}
+
+function cartCount(){
+  let cart = JSON.parse(localStorage.getItem("cartData"));
+  document.getElementById("count").innerText = cart ? cart.length : 0;
+}
+</script>
+
+</body>
+</html>

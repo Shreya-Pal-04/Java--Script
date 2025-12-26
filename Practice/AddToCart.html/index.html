@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Home</title>
+</head>
+<body>
+
+<h2 style="text-align: center;">Products</h2>
+<div id="displayProduct" style="display:flex;flex-wrap:wrap;gap:20px;"></div>
+
+<script>
+fetch("https://fakestoreapi.com/products")
+.then(async (res) => {
+  let data = await res.json();
+  let productList = "";
+
+  data.map((v) => {
+    productList += `
+      <div style="width:200px;border:1px solid #ccc;padding:10px;border-radius:25px;background-color: #DCDCDC;">
+        <img src="${v.image}" width="150" height="150"><br>
+        <b>${v.title.slice(0,30)}...</b><br>
+        ₹ ${v.price}<br><br>
+        <button onclick="findSingleProduct(${v.id})">View</button>
+      </div>
+    `;
+  });
+
+  document.getElementById("displayProduct").innerHTML = productList;
+});
+
+function findSingleProduct(id){
+  localStorage.setItem("productId", JSON.stringify(id));
+  window.location = "2page.html";
+}
+</script>
+
+</body>
+</html>

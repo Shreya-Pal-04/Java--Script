@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cart</title>
+</head>
+<body>
+
+<h2>Cart Details</h2>
+
+<table border="1" cellpadding="10">
+  <tr>
+    <th>No</th>
+    <th>Image</th>
+    <th>Title</th>
+    <th>Qty</th>
+    <th>Price</th>
+    <th>Total</th>
+    <th>Action</th>
+  </tr>
+  <tbody id="data"></tbody>
+</table>
+
+<script>
+let cartData = JSON.parse(localStorage.getItem("cartData")) || [];
+let output = "";
+
+cartData.map((v,i)=>{
+  output += `
+    <tr>
+      <td>${i+1}</td>
+      <td><img src="${v.image}" width="50"></td>
+      <td>${v.title}</td>
+      <td>${v.qty}</td>
+      <td>₹ ${v.price}</td>
+      <td>₹ ${v.price * v.qty}</td>
+      <td><button onclick="removeItem(${i})">Remove</button></td>
+    </tr>
+  `;
+});
+
+document.getElementById("data").innerHTML = output;
+
+function removeItem(index){
+  cartData.splice(index,1);
+  localStorage.setItem("cartData", JSON.stringify(cartData));
+  location.reload();
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart System</title>
+</head>
+<body>
+    <div id="productContainer" style="display: flex; flex-wrap : wrap; gap:20px"></div>
+    <script>
+        let box = document.getElementById(productContainer);
+        fetch(file)
+            .then(res => res.json())
+            .then(products =>{
+                products.forEach((v,i) => {
+                    box.innerHTML += `
+                    <div style="div = document.createElement("div");
+                    div.style.border = "1px solid #ccc";
+                    div.style.padding = "1px";
+                    div.style.width = "200px";
+                    div.style.textAlign = "center";
+                    div.style.borderRadius = "20px"">
+                    `
+                });
+            });
+    </script>
+</body>
+</html>

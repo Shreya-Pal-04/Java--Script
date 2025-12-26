@@ -1,0 +1,50 @@
+<h2>OMDb Movie Search</h2>
+
+<input type="text" id="movieName" placeholder="Enter movie name">
+<button id="searchBtn">Search</button>
+
+<div id="results" style="display: flex; flex-wrap: wrap; gap: 20px;"></div>
+<script>
+    const apiKey = "16e88e71"; // replace with your OMDb API key
+const resultsDiv = document.getElementById("results");
+
+document.getElementById("searchBtn").addEventListener("click", function() {
+    const name = document.getElementById("movieName").value.trim();
+
+    resultsDiv.innerHTML = ""; // clear previous results
+
+    if(name === "") {
+        alert("Please enter a movie name");
+        return;
+    }
+
+    fetch(`https://www.omdbapi.com/?apikey=${apiKey}&s=${encodeURIComponent(name)}`)
+        .then(res => res.json())
+        .then(data => {
+            if(data.Response === "True") {
+                data.Search.forEach(movie => {
+                    const div = document.createElement("div");
+                    div.style.border = "1px solid #ccc";
+                    div.style.padding = "10px";
+                    div.style.width = "200px";
+                    div.style.textAlign = "center";
+
+                    // Check if poster exists
+                    const poster = movie.Poster !== "N/A" ? movie.Poster : "https://via.placeholder.com/150";
+
+                    div.innerHTML = `
+                        <img src="${poster}" width="150" />
+                        <h3>${movie.Title}</h3>
+                        <p>${movie.Year}</p>
+                    `;
+
+                    resultsDiv.appendChild(div);
+                });
+            } else {
+                resultsDiv.innerHTML = `<p>${data.Error}</p>`;
+            }
+        })
+        .catch(err => console.error("API failed!", err));
+});
+
+</script>

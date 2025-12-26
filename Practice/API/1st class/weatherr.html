@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f0f8ff;
+        }
+        #weatherResult {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .weather-card {
+            border: 1px solid #ccc;
+            padding: 15px;
+            width: 200px;
+            text-align: center;
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+        }
+        .weather-card img {
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Weather App</h2>
+    <input type="text" id="cityName" placeholder="Enter city name">
+    <button id="getWeather">Get Weather</button>
+
+    <div id="weatherResult"></div>
+
+    <script>
+        const apiKey = "319e363f7129b57a68041bbafd049e3c"; // replace with your OpenWeatherMap API key
+        const resultDiv = document.getElementById("weatherResult");
+
+        document.getElementById("getWeather").addEventListener("click", function() {
+            const city = document.getElementById("cityName").value.trim();
+            resultDiv.innerHTML = "";
+
+            if(city === "") {
+                alert("Please enter a city name");
+                return;
+            }
+
+            fetch(`https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${apiKey}&units=metric`)
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data); // check response
+                    if(data.cod === 200) {
+                        const icon = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+
+                        const div = document.createElement("div");
+                        div.classList.add("weather-card");
+
+                        div.innerHTML = `
+                            <h3>${data.name}</h3>
+                            <img src="${icon}" alt="Weather Icon">
+                            <p>Temperature: ${data.main.temp} °C</p>
+                            <p>Weather: ${data.weather[0].description}</p>
+                            <p>Humidity: ${data.main.humidity}%</p>
+                        `;
+
+                        resultDiv.appendChild(div);
+                    } else {
+                        resultDiv.innerHTML = `<p>Error: ${data.message}</p>`;
+                    }
+                })
+                .catch(err => console.error("API failed!", err));
+        });
+    </script>
+
+</body>
+</html>

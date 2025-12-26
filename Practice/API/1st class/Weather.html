@@ -1,0 +1,39 @@
+
+<h2>Weather App</h2>
+
+<input type="text" id="cityName" placeholder="Enter city name">
+<button id="getWeather">Get Weather</button>
+
+<div id="weatherResult" style="margin-top: 20px;"></div>
+
+<script>
+    const apiKey = "319e363f7129b57a68041bbafd049e3c"; // replace with your OpenWeatherMap API key
+    const resultDiv = document.getElementById("weatherResult");
+
+    document.getElementById("getWeather").addEventListener("click", function(){
+        const city = document.getElementById("cityName").value.trim();
+        resultDiv.innerHTML = "";
+
+        if(city === "") {
+            alert("Please enter a city name");
+            return;
+        }
+
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${apiKey}&units=metric`)
+            .then(res => res.json())
+            .then(data => {
+                if(data.cod === 200) {
+                    resultDiv.innerHTML = `
+                        <h3>${data.name}</h3>
+                        <p>Temperature: ${data.main.temp} °C</p>
+                        <p>Weather: ${data.weather[0].description}</p>
+                        <p>Humidity: ${data.main.humidity}%</p>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `<p>${data.message}</p>`;
+                }
+            })
+            .catch(err => console.error("API failed!", err));
+    });
+
+</script>
