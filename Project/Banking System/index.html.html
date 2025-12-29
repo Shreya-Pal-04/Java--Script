@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Banking System</title>
+  <link rel="icon" href="bank-building.png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="bank-card">
+    <h2>🏦 Banking System</h2>
+
+    <label>Bank Name</label>
+    <input type="text" id="bank" placeholder="e.g. SBI">
+
+    <label>Amount (₹)</label>
+    <input type="number" id="amount" placeholder="Enter amount">
+
+    <label>Choose Action</label>
+    <select id="option">
+      <option value="deposit">Deposit</option>
+      <option value="withdraw">Withdraw</option>
+      <option value="check">Check Balance</option>
+    </select>
+
+    <button onclick="bankSystem()">Submit</button>
+
+    <div class="result-box">
+      <div id="result"></div>
+    </div>
+
+    <div class="footer">Simple JS Banking Project</div>
+  </div>
+
+  <script>
+    var balance = 0;
+
+    function bankSystem(){
+      var bank = document.getElementById("bank").value || "Your Bank";
+      var amount = Number(document.getElementById("amount").value);
+      var choice = document.getElementById("option").value;
+      var msg = "";
+
+      switch(choice){
+        case "deposit":
+          balance += amount;
+          msg = `₹${amount} deposited successfully.<br>Current Balance: ₹${balance}`;
+          break;
+          case "withdraw":
+          if (amount <= balance) {
+            balance -= amount;
+            msg = `₹${amount} withdrawn successfully.<br>Current Balance: ₹${balance}`;
+          } else {
+            msg = `❌ Insufficient balance.<br>Current Balance: ₹${balance}`;
+          }
+          break;
+          case "check":
+          msg = `Current Balance: ₹${balance}`;
+          break;
+      }
+      document.getElementById("result").innerHTML = `<b>${bank}</b><br>${msg}`;
+    }
+  </script>
+</body>
+</html>

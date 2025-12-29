@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="../clipboard.png">
+</head>
+<body>
+    <form action="">
+        <div class="app">
+        <div class="sidebar">
+            <h2>Task Manager</h2>
+            <a href="../index.html"><p>Dashboard</p></a>
+            <a href="form.html"><p>Add New Tasks</p></a>
+        </div>
+  <div class="content">
+    <h2>Task Board</h2>
+        <div class="form">
+            <label>Enter Title:</label>
+            <input id="title" placeholder="Title"></br></br>
+            <label>Enter Description:</label>
+            <input id="desc" placeholder="Description"></br></br>
+            <label>Enter Date:</label>
+            <input id="date" type="date"></br></br>
+            <label>Enter Priority:</label>
+            <select id="priority">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select></br></br>
+            <button onclick="addTask()">Add To Task Manager</button>
+    </div>
+    </form>
+
+<script>
+        let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+        showTasks();
+
+    function addTask(){
+        let title = document.getElementById("title").value;
+        let desc = document.getElementById("desc").value;
+        let date = document.getElementById("date").value;
+        let priority = document.getElementById("priority").value;
+
+        if(title === "" || date === ""){
+            alert("Title and Date required");
+            return;
+        }
+        tasks.push({
+            id: Date.now(),
+            title,
+            desc,
+            date,
+            priority
+        });
+        save();
+        clearForm();
+    }
+         // SAVE LOCAL STORAGE
+        function save(){
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+        showTasks();
+        }
+        
+        function clearForm(){
+        document.getElementById("title").value = "";
+        document.getElementById("desc").value = "";
+        document.getElementById("date").value = "";
+    }
+</script>
+</body>
+</html>

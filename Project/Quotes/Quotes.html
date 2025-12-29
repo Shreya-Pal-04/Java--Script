@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Quotes</title>
+<link rel="icon" href="quote.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="slider" id="slider">
+  <div class="track" id="track">
+  </div>
+</div>
+
+<div class="controls">
+  <button onclick="prev()">◀ Prev</button>
+  <button onclick="next()">Next ▶</button>
+</div>
+
+<script>
+  const slides = [
+    {
+      quote:"The secret of getting ahead is getting started.",
+      author:"Mark Twain",
+      img:"https://i.pravatar.cc/100?img=1"
+    },
+    {
+      quote:"Do what you can, with what you have, where you are.",
+      author:"Theodore Roosevelt",
+      img:"https://i.pravatar.cc/100?img=2"
+    },
+    {
+      quote:"It always seems impossible until it's done.",
+      author:"Nelson Mandela",
+      img:"https://i.pravatar.cc/100?img=3"
+    },
+    {
+      quote:"Action is the foundational key to all success.",
+      author:"Pablo Picasso",
+      img:"https://i.pravatar.cc/100?img=4"
+    }
+  ];
+
+  const track = document.getElementById("track");
+  const slider = document.getElementById("slider");
+  const width = 420;
+  let index = 0;
+  let auto;
+
+  slides.forEach(s=>{
+    track.innerHTML += `
+      <div class="card">
+        <img src="${s.img}">
+        <p>"${s.quote}"</p>
+        <span>— ${s.author}</span>
+      </div>
+    `;
+  });
+
+  function update(){
+    track.style.transform = `translateX(${-index * width}px)`;
+  }
+  function next(){
+    index++;
+    if(index >= slides.length) index = 0;
+    update();
+  }
+  function prev(){
+    index--;
+    if(index < 0) index = slides.length - 1;
+    update();
+  }
+  function startAuto(){
+    auto = setInterval(next,5000);
+  }
+  function stopAuto(){
+    clearInterval(auto);
+  }
+  slider.addEventListener("", stopAuto);
+  slider.addEventListener("", startAuto);
+  startAuto();
+</script>
+
+</body>
+</html>

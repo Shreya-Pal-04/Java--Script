@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess The Number</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="request.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>Guess The Number</h1>
+      <p class="sub">Choose a number between 1 and 20</p>
+
+      <div class="number">?</div>
+      <input type="number" id="guess" placeholder="Enter your guess">
+      <button class="check">Check Guess</button>
+      <p class="message" id="message">Start guessing...</p>
+      <div class="scoreboard">
+          <span>Score: <b id="score">20</b></span>
+          <span>Highscore: <b id="highscore">0</b></span>
+      </div>
+      <button class="again" id="again">Play Again</button>
+    </div>
+
+    <script>
+      let secretNumber = Math.floor(Math.random() * 20) + 1;
+      let score = 20;
+      let highscore = 0;
+
+      document.querySelector('.check').addEventListener('click', function(){
+        let guess = Number(document.getElementById('guess').value);
+        if(!guess){
+          document.getElementById('message').textContent = 'Please enter a number ❗';
+        } 
+        else if(guess === secretNumber){
+          document.getElementById('message').textContent = 'Correct Number 🎉';
+          document.querySelector('.number').textContent = secretNumber;
+            if(score > highscore){
+              highscore = score;
+              document.getElementById('highscore').textContent = highscore;
+            }
+        } 
+        else{
+          if(score > 1){
+            document.getElementById('message').textContent =
+              guess > secretNumber ? 'Too High 📈' : 'Too Low 📉';
+            score--;
+            document.getElementById('score').textContent = score;
+          }else{
+            document.getElementById('message').textContent = 'Game Over';
+            document.getElementById('score').textContent = 0;
+          }
+        }
+      });
+
+      document.getElementById('again').addEventListener('click', function(){
+        score = 20;
+        secretNumber = Math.floor(Math.random() * 20) + 1;
+
+        document.getElementById('score').textContent = score;
+        document.getElementById('message').textContent = 'Start guessing...';
+        document.querySelector('.number').textContent = '?';
+        document.getElementById('guess').value = '';
+      });
+    </script>
+  </body>
+</html>

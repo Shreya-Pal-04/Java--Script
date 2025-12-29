@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="clipboard.png">
+</head>
+<body>
+    <div class="app">
+        <div class="sidebar">
+            <h2>Task Manager</h2>
+            <a href="index.html"><p>Dashboard</p></a>
+            <a href="css/form.html"><p>Add New Tasks</p></a>
+        </div>
+        <div class="content">
+            <h2>Task Board</h2>
+            <div class="tasks" id="taskList"></div>
+        </div>
+    </div>
+
+<script>
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    showTasks();
+
+        function showTasks(){
+        let box = document.getElementById("taskList");
+        box.innerHTML = "";
+            tasks.forEach(task =>{
+            box.innerHTML += `
+            <div class="task">
+                <span class="badge ${task.priority}">
+                ${task.priority.toUpperCase()}
+                </span>
+                <h4>${task.title}</h4>
+                <p>${task.desc}</p>
+                <small>Due: ${task.date}</small><br>
+                <button onclick="editTask(${task.id})">Edit</button>
+                <button onclick="deleteTask(${task.id})">Delete</button>
+            </div>
+            `;
+        });
+        }
+        function deleteTask(id){
+        tasks = tasks.filter(t => t.id !== id);
+        save();
+        }
+
+        function editTask(id){
+        let task = tasks.find(t => t.id === id);
+
+        let newTitle = prompt("Edit Title", task.title);
+        let newDesc = prompt("Edit Description", task.desc);
+        let newDate = prompt("Edit Due Date (YYYY-MM-DD)", task.date);
+        let newPriority = prompt("Edit Priority (low / medium / high)", task.priority);
+
+        if(newTitle && newDate && newPriority){
+            task.title = newTitle;
+            task.desc = newDesc;
+            task.date = newDate;
+            task.priority = newPriority;
+        }
+        save();
+        }
+         // SAVE LOCAL STORAGE
+        function save(){
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+        showTasks();
+        }
+
+        function clearForm(){
+        document.getElementById("title").value = "";
+        document.getElementById("desc").value = "";
+        document.getElementById("date").value = "";
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Task Manager</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial;
+      background: linear-gradient(135deg,#4b2cff,#9a3cff);
+    }
+
+    /* MAIN LAYOUT */
+    .app {
+      display: flex;
+      width: 90%;
+      height: 90vh;
+      margin: 30px auto;
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 220px;
+      background: #5d5fe8;
+      color: white;
+      padding: 20px;
+    }
+
+    .sidebar h2 {
+      margin-bottom: 30px;
+    }
+
+    .sidebar p {
+      margin: 15px 0;
+      cursor: pointer;
+    }
+
+    /* MAIN CONTENT */
+    .content {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .content h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    /* ADD TASK FORM */
+    .form {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .form input, .form select {
+      padding: 8px;
+    }
+
+    /* TASK GRID */
+    .tasks {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 15px;
+    }
+
+    /* TASK CARD */
+    .task {
+      background: #f5f5f5;
+      padding: 15px;
+      border-radius: 10px;
+    }
+
+    .task h4 {
+      margin: 0 0 5px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 8px;
+      font-size: 12px;
+      border-radius: 5px;
+      margin-bottom: 5px;
+    }
+
+    .low { background:#b9fbc0; }
+    .medium { background:#ffe066; }
+    .high { background:#ffadad; }
+
+    button {
+      margin-top: 8px;
+      padding: 5px 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <h2>Task Manager</h2>
+    <p>Dashboard</p>
+    <p>Completed Tasks</p>
+    <p>Pending Tasks</p>
+    <p>Add New Tasks</p>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+    <h2>Task Board</h2>
+
+    <!-- ADD TASK -->
+    <div class="form">
+      <input id="title" placeholder="Title">
+      <input id="desc" placeholder="Description">
+      <input id="date" type="date">
+      <select id="priority">
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+      </select>
+      <button onclick="addTask()">Add</button>
+    </div>
+
+    <!-- TASK LIST -->
+    <div class="tasks" id="taskList"></div>
+  </div>
+
+</div>
+
+<script>
+/* ===== SIMPLE LOGIC (NON CODER) ===== */
+
+// Load tasks from browser memory
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+// Show tasks when page opens
+showTasks();
+
+// ADD TASK
+function addTask() {
+  let title = document.getElementById("title").value;
+  let desc = document.getElementById("desc").value;
+  let date = document.getElementById("date").value;
+  let priority = document.getElementById("priority").value;
+
+  if (title === "" || date === "") {
+    alert("Title and Date required");
+    return;
+  }
+
+  tasks.push({
+    id: Date.now(),
+    title,
+    desc,
+    date,
+    priority
+  });
+
+  save();
+  clearForm();
+}
+
+// SHOW TASKS
+function showTasks() {
+  let box = document.getElementById("taskList");
+  box.innerHTML = "";
+
+  tasks.forEach(task => {
+    box.innerHTML += `
+      <div class="task">
+        <span class="badge ${task.priority}">
+          ${task.priority.toUpperCase()}
+        </span>
+        <h4>${task.title}</h4>
+        <p>${task.desc}</p>
+        <small>Due: ${task.date}</small><br>
+        <button onclick="editTask(${task.id})">Edit</button>
+        <button onclick="deleteTask(${task.id})">Delete</button>
+      </div>
+    `;
+  });
+}
+
+// DELETE TASK
+function deleteTask(id) {
+  tasks = tasks.filter(t => t.id !== id);
+  save();
+}
+
+function editTask(id) {
+
+  // Step 1: jis task ko edit karna hai wo dhoondo
+  let task = tasks.find(t => t.id === id);
+
+  // Step 2: user se naye values lo
+  let newTitle = prompt("Edit Title", task.title);
+  let newDesc = prompt("Edit Description", task.desc);
+  let newDate = prompt("Edit Due Date (YYYY-MM-DD)", task.date);
+  let newPriority = prompt("Edit Priority (low / medium / high)", task.priority);
+
+  // Step 3: agar user cancel na kare
+  if (newTitle && newDate && newPriority) {
+    task.title = newTitle;
+    task.desc = newDesc;
+    task.date = newDate;
+    task.priority = newPriority;
+  }
+
+  // Step 4: save & refresh
+  save();
+}
+
+
+// SAVE TO LOCAL STORAGE
+function save() {
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+  showTasks();
+}
+
+// CLEAR FORM
+function clearForm() {
+  document.getElementById("title").value = "";
+  document.getElementById("desc").value = "";
+  document.getElementById("date").value = "";
+}
+</script>
+
+</body>
+</html>
