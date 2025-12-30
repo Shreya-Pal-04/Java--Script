@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Account</title>
+    <title>ShopNow</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+    <link rel="icon" href="shopping-bag.png">
     <style>
         *{
             margin: 0;
@@ -18,7 +18,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #00d2ff, #3a47d5);
+            background: linear-gradient(135deg, #787fc5);
         }
         .container{
             width: 380px;
@@ -38,7 +38,6 @@
             position: relative;
             margin-bottom: 15px;
         }
-
         .input-box input{
             width: 100%;
             padding: 13px 18px;
@@ -48,7 +47,6 @@
             font-size: 15px;
             outline: none;
         }
-
         .input-box i{
             position: relative;
             top: 50%;
@@ -83,10 +81,9 @@
             transition: 0.3s;
         }
         .input-box.password input {
-            padding-right: 45px; /* Right icon ke liye jagah */
-            padding-left: 15px;  /* Left se normal padding */
+            padding-right: 45px;
+            padding-left: 15px;
         }
-
         .btn:hover{
             opacity: 0.9;
         }
@@ -155,7 +152,8 @@
             }
             else{
                 alert("Account Created Successfully!🎊");
-                return true;
+                window.location.href = "Allproduct.html";
+                return false;
             }
         }
         function togglePass(id, el){

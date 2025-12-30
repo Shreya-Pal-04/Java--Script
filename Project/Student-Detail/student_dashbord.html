@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>University College Student</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="student.png">
+  </head>
+
+  <body>
+  <div class="container">
+  <h2>Student Details</h2>
+
+  <input id="uname" placeholder="University Name">
+  <input id="uyear" placeholder="University Year">
+
+  <input id="cname" placeholder="College Name">
+  <input id="clocation" placeholder="College Location">
+
+  <input id="sname" placeholder="Student Name">
+  <input id="sid" placeholder="Student ID">
+
+  <input id="cgpa1" placeholder="Year 1 CGPA">
+  <input id="cgpa2" placeholder="Year 2 CGPA">
+  <input id="cgpa3" placeholder="Year 3 CGPA">
+
+  <button onclick="showData()">SUBMIT</button>
+
+  <div id="output"></div>
+  </div>
+
+  <script>
+  class University{
+      constructor(name, year){
+          this.name = name;
+          this.year = year;
+      }
+  }
+  class College extends University{
+      constructor(name, year, cname, location){
+          super(name, year);
+          this.cname = cname;
+          this.location = location;
+      }
+  }
+  class Student extends College{
+      constructor(name, year, cname, location, sname, id, c1, c2, c3){
+          super(name, year, cname, location);
+          this.sname = sname;
+          this.id = id;
+          this.c1 = c1;
+          this.c2 = c2;
+          this.c3 = c3;
+      }
+  }
+  function showData(){
+      var s = new Student(
+          uname.value,
+          uyear.value,
+          cname.value,
+          clocation.value,
+          sname.value,
+          sid.value,
+          cgpa1.value,
+          cgpa2.value,
+          cgpa3.value
+      );
+      output.innerHTML =
+          "<div class='title'>University</div>" +
+          "Name : " + s.name + "<br>" +
+          "Year : " + s.year + "<br><br>" +
+
+          "<div class='title'>College</div>" +
+          "Name : " + s.cname + "<br>" +
+          "Location : " + s.location + "<br><br>" +
+
+          "<div class='title'>Student</div>" +
+          "Name : " + s.sname + "<br>" +
+          "ID : " + s.id + "<br><br>" +
+
+          "<div class='title'>CGPA</div>" +
+          "Year 1 : " + s.c1 + "<br>" +
+          "Year 2 : " + s.c2 + "<br>" +
+          "Year 3 : " + s.c3;
+      uname.value = "";
+      uyear.value = "";
+      cname.value = "";
+      clocation.value = "";
+      sname.value = "";
+      sid.value = "";
+      cgpa1.value = "";
+      cgpa2.value = "";
+      cgpa3.value = "";
+  }
+  </script>
+  </body>
+</html>

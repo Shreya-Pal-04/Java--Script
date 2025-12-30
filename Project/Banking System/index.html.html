@@ -11,6 +11,12 @@
   <div class="bank-card">
     <h2>🏦 Banking System</h2>
 
+    <label>Account Type</label>
+    <select id="accountType">
+      <option value="saving">Saving Account</option>
+      <option value="current">Current Account</option>
+    </select>
+
     <label>Bank Name</label>
     <input type="text" id="bank" placeholder="e.g. SBI">
 
@@ -29,12 +35,20 @@
     <div class="result-box">
       <div id="result"></div>
     </div>
-
-    <div class="footer">Simple JS Banking Project</div>
   </div>
 
   <script>
     var balance = 0;
+    var savingBalance = 0;
+    var currentBalance = 0;
+    var balance;
+
+    var account = document.getElementById("accountType").value;
+    if(account === "saving"){
+      balance = savingBalance;
+    } else {
+      balance = currentBalance;
+    }
 
     function bankSystem(){
       var bank = document.getElementById("bank").value || "Your Bank";
@@ -59,7 +73,13 @@
           msg = `Current Balance: ₹${balance}`;
           break;
       }
-      document.getElementById("result").innerHTML = `<b>${bank}</b><br>${msg}`;
+      if(account === "saving"){
+        savingBalance = balance;
+      } else {
+        currentBalance = balance;
+      }
+      var accName = (account === "saving") ? "Saving Account" : "Current Account";
+      document.getElementById("result").innerHTML = `<b>${bank} Bank</b><br><b>${accName}</b><br>${msg}`;
     }
   </script>
 </body>

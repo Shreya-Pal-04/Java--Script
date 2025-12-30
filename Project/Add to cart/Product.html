@@ -1,60 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Single Product</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8">
+    <title>ShopNow</title>
+    <link rel="stylesheet" href="css/cart.css">
+    <link rel="icon" href="shopping-bag.png">
+  </head>
 
-<h2>
-  <a href="cart.html">Cart (<span id="count">0</span>)</a>
-</h2>
+  <body>
+  <div class="header">
+    <div class="logo">
+      <a href="Allproduct.html">ShopNow</a>
+    </div>
 
-<img id="productImage" width="200"><br>
-<h3 id="title"></h3>
-<p id="price"></p>
+    <div class="menu">
+      <a href="Allproduct.html">Home</a>
+      <a href="#">Categories</a>
+      <a href="#">Deals</a>
+      <a href="#">Contact</a>
+    </div>
 
-<select id="quantity">
-  <option value="1">1</option>
-  <option value="2">2</option>
-  <option value="3">3</option>
-  <option value="4">4</option>
-  <option value="5">5</option>
-</select><br><br>
+    <div class="header-right">
+      <div class="search-box">
+        <input type="text" placeholder="Search products">
+      </div>
+      <div class="cart-icon" onclick="openCart()">🛒 <span id="count">0</span></div>
+    </div>
+  </div>
 
-<button onclick="addToCart()">Add to Cart</button>
+  <div class="product-page">
 
-<script>
-cartCount();
+    <div class="product-img">
+      <img id="productImage" alt="Product Image">
+    </div>
 
-let productId = JSON.parse(localStorage.getItem("productId"));
-let productData;
+    <div class="product-details">
+      <h2 id="title"></h2>
+      <div class="rating">⭐⭐⭐⭐☆</div>
+      <div class="price" id="price"></div>
+      <p class="desc">High quality product with best price guarantee. Easy returns & fast delivery available.</p>
 
-fetch(`https://fakestoreapi.com/products/${productId}`)
-.then(async (res)=>{
-  productData = await res.json();
-  document.getElementById("productImage").src = productData.image;
-  document.getElementById("title").innerText = productData.title;
-  document.getElementById("price").innerText = "₹ " + productData.price;
-});
+      <div class="actions">
+        <label>Quantity:</label>
+        <select id="quantity">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+        </select><br>
+        <button onclick="addToCart()">Add to Cart</button>
+      </div>
+    </div>
+  </div>
 
-function addToCart(){
-  let qty = document.getElementById("quantity").value;
-  let cart = JSON.parse(localStorage.getItem("cartData")) || [];
+  <script>
+    cartCount();
+    let productId = JSON.parse(localStorage.getItem("productId"));
+    let productData;
 
-  productData.qty = qty;
-  cart.push(productData);
+    fetch(`https://fakestoreapi.com/products/${productId}`)
+    .then(async res=>{
+      productData = await res.json();
+      document.getElementById("productImage").src = productData.image;
+      document.getElementById("title").innerText = productData.title;
+      document.getElementById("price").innerText = "₹ " + productData.price;
+    });
 
-  localStorage.setItem("cartData", JSON.stringify(cart));
-  cartCount();
-  alert("Added to cart");
-}
+    function addToCart(){
+      let qty = document.getElementById("quantity").value;
+      let cartData = localStorage.getItem("cartData");
 
-function cartCount(){
-  let cart = JSON.parse(localStorage.getItem("cartData"));
-  document.getElementById("count").innerText = cart ? cart.length : 0;
-}
-</script>
+    if(cartData){
+        cart = JSON.parse(cartData);
+    }else{
+        cart = [];
+    }
 
-</body>
+      productData.qty = qty;
+      cart.push(productData);
+
+      localStorage.setItem("cartData", JSON.stringify(cart));
+      cartCount();
+      alert("Product added to cart");
+    }
+    function cartCount(){
+      let cart = JSON.parse(localStorage.getItem("cartData"));
+      document.getElementById("count").innerText = cart ? cart.length : 0;
+    }
+    function openCart(){
+      window.location = "cart.html";
+    }
+  </script>
+
+  </body>
 </html>

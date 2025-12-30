@@ -1,37 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Home</title>
+<meta charset="UTF-8">
+<title>ShopNow</title>
+<link rel="stylesheet" href="css/cart.css">
+<link rel="icon" href="shopping-bag.png">
 </head>
-<body>
 
-<h2 style="text-align: center;">Products</h2>
-<div id="displayProduct" style="display:flex;flex-wrap:wrap;gap:20px;"></div>
+<body>
+<div class="offer-bar">
+  🔥 Big Sale | Up to 50% OFF | Free Delivery
+</div>
+
+<div class="header">
+  <div class="logo">ShopNow</div>
+
+  <div class="menu">
+    <a href="#">Home</a>
+    <a href="#">Categories</a>
+    <a href="#">Deals</a>
+    <a href="#">Contact</a>
+  </div>
+
+  <div class="header-right">
+    <div class="search-box">
+      <input type="text" placeholder="Search products">
+    </div>
+    <div class="cart-icon" onclick="openCart()">🛒</div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-content">
+    <h1>Big Billion Deals</h1>
+    <p>Best Prices | Top Brands | Easy Returns</p>
+  </div>
+</div>
+
+<div class="section-title">Trending Products</div>
+<div id="displayProduct"></div>
 
 <script>
 fetch("https://fakestoreapi.com/products")
-.then(async (res) => {
+.then(async res=>{
   let data = await res.json();
-  let productList = "";
-
-  data.map((v) => {
-    productList += `
-      <div style="width:200px;border:1px solid #ccc;padding:10px;border-radius:25px;background-color: #DCDCDC;">
-        <img src="${v.image}" width="150" height="150"><br>
-        <b>${v.title.slice(0,30)}...</b><br>
-        ₹ ${v.price}<br><br>
-        <button onclick="findSingleProduct(${v.id})">View</button>
+  let productList="";
+  data.map(v=>{
+    productList+=`
+      <div class="card">
+        <img src="${v.image}">
+        <div class="title">${v.title.slice(0,30)}...</div>
+        <div class="price">₹ ${v.price}</div>
+        <button onclick="findSingleProduct(${v.id})">
+          View Product
+        </button>
       </div>
     `;
   });
-
-  document.getElementById("displayProduct").innerHTML = productList;
+  document.getElementById("displayProduct").innerHTML=productList;
 });
 
 function findSingleProduct(id){
-  localStorage.setItem("productId", JSON.stringify(id));
-  window.location = "Product.html";
+  localStorage.setItem("productId",JSON.stringify(id));
+  window.location="Product.html";
+}
+
+function openCart(){
+  window.location="cart.html";
 }
 </script>
 

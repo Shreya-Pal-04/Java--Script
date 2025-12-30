@@ -1,52 +1,258 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
   <meta charset="UTF-8">
-  <title>Cart</title>
-</head>
-<body>
+  <title>ShopNow</title>
+  <link rel="icon" href="shopping-bag.png">
+  <style>
+  body{
+    margin:0; 
+    font-family:Arial,sans-serif; 
+    background:#f5f6fa;
+  }
+  .header{
+    background:#fff;
+    padding:15px 30px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+    position:sticky;
+    top:0;
+    z-index:10;
+  }
+  .logo{
+    font-size:22px;
+    font-weight:bold;
+    color:#2874f0;
+  }
+  .logo a{
+    text-decoration:none;
+    color:#2874f0;
+  }
+  .menu a{
+    margin:0 12px;
+    text-decoration:none;
+    color:#333;
+    font-size:14px;
+  }
+  .menu a:hover{color:#2874f0;}
+  .header-right{
+    display:flex;
+    align-items:center;
+    gap:15px;
+  }
+  .search-box input{
+    padding:6px 10px;
+    border:1px solid #ccc;
+    border-radius:4px;
+  }
+  .cart-icon{
+    font-size:22px;
+    cursor:pointer;
+  }
+  .cart-icon:hover{transform:scale(1.2);}
+  .cart-container{
+    max-width:1000px;
+    margin:30px auto;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+  }
+  .cart-card{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    background:#fff;
+    padding:15px;
+    border-radius:12px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.08);
+    gap:20px;
+    transition:0.3s;
+  }
+  .cart-card:hover{
+    box-shadow:0 6px 18px rgba(0,0,0,0.15);
+  }
+  .cart-card img{
+    width:100px;
+    height:100px;
+    object-fit:contain;
+    border-radius:8px;
+  }
+  .cart-card .cart-info{
+    flex:1;
+  }
+  .cart-card .cart-info h3{
+    margin:0 0 8px 0;
+    font-size:18px;
+    color:#333;
+  }
+  .cart-card .cart-info p{
+    margin:4px 0;
+    font-size:16px;
+    color:#388e3c;
+    font-weight:bold;
+  }
+  .cart-card .cart-actions{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    align-items:flex-end;
+  }
+  .cart-card select{
+    padding:6px;
+    border-radius:6px;
+    border:1px solid #ccc;
+  }
+  .cart-card button{
+    padding:6px 12px;
+    border:none;
+    border-radius:6px;
+    background:#ff3d00;
+    color:#fff;
+    cursor:pointer;
+    font-weight:bold;
+    transition:0.3s;
+  }
+  .cart-card button:hover{background:#e63600;}
 
-<h2>Cart Details</h2>
+  .cart-footer{
+    max-width:1000px;
+    margin:20px auto;
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    gap:20px;
+    flex-wrap:wrap;
+  }
+  .cart-total{
+    font-size:20px;
+    font-weight:bold;
+  }
+  .checkout-btn{
+    padding:12px 25px;
+    background:#2874f0;
+    color:#fff;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:16px;
+    font-weight:bold;
+    transition:0.3s;
+  }
+  .checkout-btn:hover{background:#1f5edc;}
+  @media(max-width:768px){
+    .cart-card{
+      flex-direction:column;
+      align-items:flex-start;
+    }
+    .cart-card .cart-actions{
+      width:100%;
+      flex-direction:row;
+      justify-content:space-between;
+    }
+    .cart-footer{
+      flex-direction:column;
+      align-items:flex-start;
+      gap:10px;
+    }
+    .menu{display:none;}
+  }
+  </style>
+  </head>
+    <body>
+      <div class="header">
+        <div class="logo">
+          <a href="Allproduct.html">ShopNow</a>
+        </div>
 
-<table border="1" cellpadding="10">
-  <tr>
-    <th>No</th>
-    <th>Image</th>
-    <th>Title</th>
-    <th>Qty</th>
-    <th>Price</th>
-    <th>Total</th>
-    <th>Action</th>
-  </tr>
-  <tbody id="data"></tbody>
-</table>
+        <div class="menu">
+          <a href="Allproduct.html">Home</a>
+          <a href="#">Categories</a>
+          <a href="#">Deals</a>
+          <a href="#">Contact</a>
+        </div>
 
-<script>
-let cartData = JSON.parse(localStorage.getItem("cartData")) || [];
-let output = "";
+        <div class="header-right">
+          <div class="search-box">
+            <input type="text" placeholder="Search products">
+          </div>
+          <div class="cart-icon" onclick="openCart()">
+            🛒 <span id="count">0</span>
+          </div>
+        </div>
 
-cartData.map((v,i)=>{
-  output += `
-    <tr>
-      <td>${i+1}</td>
-      <td><img src="${v.image}" width="50"></td>
-      <td>${v.title}</td>
-      <td>${v.qty}</td>
-      <td>₹ ${v.price}</td>
-      <td>₹ ${v.price * v.qty}</td>
-      <td><button onclick="removeItem(${i})">Remove</button></td>
-    </tr>
-  `;
-});
+      </div>
 
-document.getElementById("data").innerHTML = output;
+    <div class="cart-container" id="cart-container">
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total" id="grandTotal">Grand Total: ₹ 0</div>
+      <button class="checkout-btn" onclick="checkout()">Checkout</button>
+    </div>
 
-function removeItem(index){
-  cartData.splice(index,1);
-  localStorage.setItem("cartData", JSON.stringify(cartData));
-  location.reload();
-}
-</script>
+    <script>
+    let cartData = JSON.parse(localStorage.getItem("cartData")) || [];
+    const container = document.getElementById("cart-container");
 
-</body>
+      function renderCart(){
+        container.innerHTML = "";
+        let grandTotal = 0;
+
+        cartData.forEach((v,i)=>{
+          let total = v.price * v.qty;
+          grandTotal += total;
+
+          const card = document.createElement("div");
+          card.className = "cart-card";
+
+          card.innerHTML = `
+            <img src="${v.image}" alt="Product">
+            <div class="cart-info">
+              <h3>${v.title}</h3>
+              <p>₹ ${v.price}</p>
+            </div>
+            <div class="cart-actions">
+              <select onchange="updateQty(${i}, this.value)">
+                <option ${v.qty==1?'selected':''}>1</option>
+                <option ${v.qty==2?'selected':''}>2</option>
+                <option ${v.qty==3?'selected':''}>3</option>
+                <option ${v.qty==4?'selected':''}>4</option>
+                <option ${v.qty==5?'selected':''}>5</option>
+              </select>
+              <button onclick="removeItem(${i})">Remove</button>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+
+        document.getElementById("grandTotal").innerText = "Total: ₹ " + grandTotal;
+        cartCount();
+      }
+      renderCart();
+      function removeItem(index){
+        cartData.splice(index,1);
+        localStorage.setItem("cartData", JSON.stringify(cartData));
+        renderCart();
+      }
+      function updateQty(index, qty){
+        cartData[index].qty = Number(qty);
+        localStorage.setItem("cartData", JSON.stringify(cartData));
+        renderCart();
+      }
+      function cartCount(){
+        document.getElementById("count").innerText = cartData.length;
+      }
+      function openCart(){
+        window.location = "cart.html";
+      }
+      function checkout(){
+      if(cartData.length === 0){
+        alert("Cart is empty!");
+        return;
+      }
+      alert("Proceeding to checkout. Total: ₹ " + document.getElementById("grandTotal").innerText.split("₹ ")[1]);
+    }
+    </script>
+    </body>
 </html>
