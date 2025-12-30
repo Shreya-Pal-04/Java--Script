@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Corona Tracker</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="icon" href="coronavirus.png">
+    </head>
+    <body>
+        <div class="app">
+            <h2>Corona Tracker</h2>
+            <input type="text" id="country" placeholder="Enter country name">
+            <button onclick="getData()">Get Report</button>
+            <div id="result"></div>
+        </div>
+
+<script>
+function getData(){
+    const country = document.getElementById("country").value.trim();
+    const result = document.getElementById("result");
+    result.innerHTML = "";
+
+    if(country === ""){
+        alert("Please enter country name");
+        return;
+    }
+    fetch(`https://disease.sh/v3/covid-19/countries/${country}`)
+    .then(res => res.json())
+    .then(data => {
+        if(data.message){
+            result.innerHTML = "<p class='error'>Country not found</p>";
+            return;
+        }
+        result.innerHTML = `
+        <div class="card">
+            <h3>${data.country}</h3>
+            <p><b>Total Cases:</b> ${data.cases}</p>
+            <p><b>Recovered:</b> ${data.recovered}</p>
+            <p><b>Deaths:</b> ${data.deaths}</p>
+            <p><b>Active:</b> ${data.active}</p>
+        </div>
+        `;
+    })
+    .catch(err => {
+        console.log(err);
+        result.innerHTML = "<p class='error'>API Error</p>";
+    });
+}
+</script>
+</body>
+</html>
